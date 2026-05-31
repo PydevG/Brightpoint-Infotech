@@ -912,6 +912,33 @@
             transition: all 0.3s ease;
         }
         
+        /* Sticky registration sidebar */
+        .sticky-sidebar {
+            position: sticky;
+            top: 100px;
+            z-index: 10;
+        }
+        
+        @media (max-width: 991.98px) {
+            .sticky-sidebar {
+                position: static;
+            }
+        }
+        
+        /* Form styling */
+        #webinarRegForm .form-control:focus,
+        #webinarRegModalForm .form-control:focus {
+            border-color: var(--bp-accent);
+            box-shadow: 0 0 0 3px rgba(0, 90, 158, 0.1);
+            outline: none;
+        }
+        
+        #webinarRegForm button[type="submit"]:hover,
+        #webinarRegModalForm button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(253,184,19,0.3);
+        }
+        
         /* Mobile navbar collapse */
         @media (max-width: 991.98px) {
             .navbar-collapse {
@@ -1030,8 +1057,8 @@
                     <span class="hero-badge-live">LIVE WEBINAR</span>
                     <span class="hero-badge-date">July 22, 2026 | 3:00 PM EAT</span>
                 </div>
-                <h1>Driving Greater <span>Mission Impact</span><br>with Dynamics 365</h1>
-                <p>Gain complete visibility across funding, programs, operations, and impact — so your organization can deliver more measurable outcomes with greater accountability.</p>
+                <h1>Driving Greater <span>Mission Impact</span><br>with Microsoft Dynamics 365 for Nonprofits</h1>
+                <p>Gain complete visibility across funding, programs, operations, and impact reporting — so your organization can deliver measurable outcomes with greater accountability.</p>
                 
                 <div class="countdown-wrapper">
                     <div class="countdown-box"><div class="countdown-number" id="countdownDays">00</div><div class="countdown-label">Days</div></div>
@@ -1041,7 +1068,7 @@
                 </div>
                 
                 <div class="hero-buttons">
-                    <a href="#register" class="hero-btn-primary"><i class="bi bi-ticket-perforated me-2"></i> Reserve Free Seat</a>
+                    <a href="#register-form" class="hero-btn-primary"><i class="bi bi-ticket-perforated me-2"></i> Reserve Free Seat</a>
                     <a href="#assessment" class="hero-btn-secondary"><i class="bi bi-calendar-check me-2"></i> Book Assessment</a>
                 </div>
             </div>
@@ -1059,8 +1086,8 @@
             <span class="hero-badge-live">LIVE WEBINAR</span>
             <span class="hero-badge-date">July 22, 2026 | 3:00 PM EAT</span>
         </div>
-        <h1>Driving Greater <span>Mission Impact</span><br>with Dynamics 365</h1>
-        <p>Gain complete visibility across funding, programs, operations, and impact — so your organization can deliver more measurable outcomes with greater accountability.</p>
+        <h1>Driving Greater <span>Mission Impact</span><br>with Microsoft Dynamics 365 for Nonprofits</h1>
+        <p>Gain complete visibility across funding, programs, operations, and impact reporting — so your organization can deliver measurable outcomes with greater accountability.</p>
         
         <div class="countdown-wrapper">
             <div class="countdown-box"><div class="countdown-number" id="countdownDaysMobile">00</div><div class="countdown-label">Days</div></div>
@@ -1070,7 +1097,7 @@
         </div>
         
         <div class="hero-buttons">
-            <a href="#register" class="hero-btn-primary"><i class="bi bi-ticket-perforated me-2"></i> Reserve Free Seat</a>
+            <a href="#register-form" class="hero-btn-primary"><i class="bi bi-ticket-perforated me-2"></i> Reserve Free Seat</a>
             <a href="#assessment" class="hero-btn-secondary"><i class="bi bi-calendar-check me-2"></i> Book Assessment</a>
         </div>
     </div>
@@ -1079,46 +1106,88 @@
     </div>
 </div>
 
-<!--  WHAT YOU'LL LEARN  -->
+<!--  WHAT YOU'LL LEARN & REGISTRATION  -->
 <section class="py-5" style="background: white;">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="mt-3 mb-2" style="font-size: 1.8rem; font-weight: 700; color: var(--bp-primary);">What You'll Learn</h2>
-        </div>
-        
-        <div class="row g-4">
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-link-45deg fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Connected Operations</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Replace disconnected spreadsheets with a fully integrated nonprofit management platform.</p></div></div>
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-eye fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Real-time Visibility</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Track donor funding, grant lifecycles, procurement, and financial spend instantly.</p></div></div>
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-graph-up fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Unified Program Pipeline</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Connect funding to operations, project delivery, and measurable outcomes.</p></div></div>
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-bar-chart-steps fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Donor-Ready Reporting</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Dynamic executive dashboards and automated reporting capabilities.</p></div></div>
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-shield-check fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Audit & Compliance</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Strengthen accountability and funding transparency across operations.</p></div></div>
-            <div class="col-lg-4 col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-gift fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Non-Profit Grants and Credits Eligibility</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Familiarise yourself with the three Eligibility requirements to get discounted solutions.</p></div></div>
-        </div>
-    </div>
-</section>
-
-<!-- Agenda Highlights -->
-<section class="py-5" style="background: #f8fafc;">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title">Webinar Highlights</h2>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="bg-white rounded-4 p-4 reveal">
-                    <div class="text-center mb-4">
-                        <div class="d-inline-flex align-items-center gap-2 px-4 py-2 rounded-pill" style="background: rgba(0, 90, 158, 0.08);">
-                            <i class="bi bi-clock-history"></i>
-                            <span>Event Timeline</span>
+        <div class="row g-5">
+            <!-- Left: Learning Cards -->
+            <div class="col-lg-7">
+                <div class="text-center mb-5">
+                    <h2 class="mt-3 mb-2" style="font-size: 1.8rem; font-weight: 700; color: var(--bp-primary);">What You'll Learn &amp; Webinar Highlights</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-arrow-repeat fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Modernizing Nonprofit Operations</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Learn how nonprofits can eliminate silos, improve accountability, and adopt digital transformation to strengthen mission delivery.</p></div></div>
+                    <div class="col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-shield-check fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Financial Management &amp; Compliance</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Discover how Dynamics 365 helps streamline budgeting, procurement, reporting, and compliance for stronger financial control.</p></div></div>
+                    <div class="col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-diagram-3 fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Grants, Programs &amp; Impact</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Explore how to track grants, monitor projects, measure outcomes, and improve visibility across program execution.</p></div></div>
+                    <div class="col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-bar-chart-steps fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Data into Actionable Insights</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">See how dashboards, AI-powered insights, and real-time reporting improve decision-making and impact visibility.</p></div></div>
+                    <div class="col-md-6 reveal"><div class="learning-card"><div class="mb-3"><div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: rgba(0, 90, 158, 0.08);"><i class="bi bi-gift fs-4" style="color: var(--bp-accent);"></i></div></div><h5 style="font-size: 1rem; font-weight: 700;">Microsoft Nonprofit Benefits</h5><p style="font-size: 0.8rem; color: var(--bp-gray);">Understand how eligible nonprofits can access Microsoft grants, discounted licensing, and digital tools to accelerate transformation.</p></div></div>
+                </div>
+            </div>
+            
+            <!-- Right: Registration Form -->
+            <div class="col-lg-5">
+                <div class="sticky-sidebar" id="register-form">
+                    <div class="rounded-4" style="background: white; border: 1px solid #eef2f8; box-shadow: 0 10px 40px rgba(0,0,0,0.08); overflow: hidden;">
+                        <div style="background: linear-gradient(135deg, var(--bp-primary), #164072); padding: 20px 24px; text-align: center;">
+                            <h4 style="color: white; margin: 0; font-size: 1.15rem; font-weight: 700;"><i class="bi bi-ticket-perforated me-2"></i>Reserve Your Free Seat</h4>
+                            <p style="color: rgba(255,255,255,0.7); margin: 6px 0 0; font-size: 0.8rem;">Join nonprofit leaders across Africa</p>
                         </div>
-                    </div>
-                    <div class="timeline-container" style="position: relative; max-width: 500px; margin: 0 auto;">
-                        <div style="position: absolute; left: 24px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--bp-accent), var(--bp-gold));"></div>
-                        <div class="d-flex gap-3 mb-4 position-relative"><div class="timeline-icon"><i class="bi bi-door-open"></i></div><div><div class="fw-bold">3:00 PM</div><div class="text-muted small">Webinar Doors Open & Welcome</div></div></div>
-                        <div class="d-flex gap-3 mb-4 position-relative"><div class="timeline-icon"><i class="bi bi-puzzle"></i></div><div><div class="fw-bold">3:10 PM</div><div class="text-muted small">Understanding Modern Nonprofit Challenges</div></div></div>
-                        <div class="d-flex gap-3 mb-4 position-relative"><div class="timeline-icon"><i class="bi bi-building"></i></div><div><div class="fw-bold">3:30 PM</div><div class="text-muted small">Operations & Grant Management with Dynamics 365</div></div></div>
-                        <div class="d-flex gap-3 mb-4 position-relative"><div class="timeline-icon"><i class="bi bi-magic"></i></div><div><div class="fw-bold">3:50 PM</div><div class="text-muted small">Turning Data Into Donor-Ready Impact Stories</div></div></div>
-                        <div class="d-flex gap-3 position-relative"><div class="timeline-icon gold"><i class="bi bi-chat-dots"></i></div><div><div class="fw-bold">4:00 PM</div><div class="text-muted small">Live Q&A Session with Speakers</div></div></div>
+                        <form id="webinarRegForm" onsubmit="return handleRegistration(event, this)" style="padding: 24px;">
+                            <div id="regFormFields">
+                                <div class="mb-3">
+                                    <label for="regName" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Full Name <span style="color: #dc2626;">*</span></label>
+                                    <input type="text" id="regName" name="name" required class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                    <div class="invalid-feedback">Please enter your full name.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="regEmail" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Email Address <span style="color: #dc2626;">*</span></label>
+                                    <input type="email" id="regEmail" name="email" required class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                                    <div id="regEmailError" class="invalid-feedback" style="display: none;"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="regOrg" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Organization</label>
+                                    <input type="text" id="regOrg" name="organization" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="regTitle" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Job Title</label>
+                                    <input type="text" id="regTitle" name="job_title" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="regPhone" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Phone Number</label>
+                                    <input type="tel" id="regPhone" name="phone" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="regCountry" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Country</label>
+                                    <select id="regCountry" name="country" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                                        <option value="">Select your country</option>
+                                        <option value="Kenya">Kenya</option>
+                                        <option value="Uganda">Uganda</option>
+                                        <option value="Tanzania">Tanzania</option>
+                                        <option value="Rwanda">Rwanda</option>
+                                        <option value="Ethiopia">Ethiopia</option>
+                                        <option value="Nigeria">Nigeria</option>
+                                        <option value="Ghana">Ghana</option>
+                                        <option value="South Africa">South Africa</option>
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <button type="submit" id="regSubmitBtn" style="background: var(--bp-gold); color: var(--bp-primary); border: none; width: 100%; padding: 12px; border-radius: 50px; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;">
+                                    <i class="bi bi-ticket-perforated me-2"></i>Reserve Free Seat
+                                </button>
+                                <p style="font-size: 0.65rem; color: var(--bp-gray); text-align: center; margin-top: 12px; margin-bottom: 0;">
+                                    <i class="bi bi-lock me-1"></i> Your information is secure. Webinar recording will be shared with registrants.
+                                </p>
+                            </div>
+                            <div id="regFormSuccess" style="display: none; text-align: center; padding: 20px 0;">
+                                <div style="font-size: 3rem; color: #22c55e; margin-bottom: 12px;">&#10003;</div>
+                                <h5 style="color: var(--bp-primary); font-weight: 700;">You're Registered!</h5>
+                                <p style="color: var(--bp-gray); font-size: 0.85rem; margin-bottom: 0;">Check your email for webinar access details. A recording will be shared after the session.</p>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -1126,15 +1195,87 @@
     </div>
 </section>
 
-<!-- Key Takeaway -->
+<!-- Webinar Highlights -->
+<section class="py-5" style="background: #f8fafc;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Webinar Highlights</h2>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="bg-white rounded-4 p-4 p-md-5 reveal">
+                    <div class="rounded-4 p-4 mb-4" style="background: linear-gradient(135deg, #0a2540 0%, #164072 100%);">
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <i class="bi bi-calendar-event" style="color: var(--bp-gold);"></i>
+                            <span style="color: white; font-weight: 600; font-size: 1.1rem;">Webinar Details</span>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-calendar3" style="color: var(--bp-gold); font-size: 1.2rem;"></i>
+                                    <div><span style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">Date</span><br><span style="color: white; font-weight: 600; font-size: 0.9rem;">22 July 2026</span></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-clock" style="color: var(--bp-gold); font-size: 1.2rem;"></i>
+                                    <div><span style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">Time</span><br><span style="color: white; font-weight: 600; font-size: 0.9rem;">3:00 PM – 4:00 PM EAT</span></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-laptop" style="color: var(--bp-gold); font-size: 1.2rem;"></i>
+                                    <div><span style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">Format</span><br><span style="color: white; font-weight: 600; font-size: 0.9rem;">Live Webinar via Microsoft Teams</span></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex gap-2 align-items-center">
+                                    <i class="bi bi-hourglass-split" style="color: var(--bp-gold); font-size: 1.2rem;"></i>
+                                    <div><span style="color: rgba(255,255,255,0.6); font-size: 0.75rem;">Duration</span><br><span style="color: white; font-weight: 600; font-size: 0.9rem;">60 Minutes</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 1rem; color: var(--bp-gray); line-height: 1.7; margin-bottom: 24px;">
+                        Nonprofits are under increasing pressure to demonstrate impact, maintain accountability, and meet growing donor and compliance requirements. Yet many organizations still rely on fragmented systems, spreadsheets, and manual reporting processes.
+                    </p>
+                    <p style="font-size: 1rem; color: var(--bp-gray); line-height: 1.7; margin-bottom: 0;">
+                        This often results in limited visibility, time-consuming reporting, disconnected data, and challenges in measuring program outcomes. Join us to discover how a connected nonprofit platform can help transform operations and improve mission impact.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Who Should Attend -->
 <section class="py-5" style="background: white;">
+    <div class="container">
+        <div class="text-center mb-4">
+            <h2 class="section-title">Who Should Attend</h2>
+            <p style="color: var(--bp-gray);">This webinar is designed for nonprofit and NGO leaders responsible for organizational performance, reporting, accountability, and impact delivery.</p>
+        </div>
+        <div class="text-center">
+            <span class="attend-pill"><i class="bi bi-person-badge"></i> Executive Directors &amp; NGO Leadership</span>
+            <span class="attend-pill"><i class="bi bi-calculator"></i> Finance &amp; Procurement Teams</span>
+            <span class="attend-pill"><i class="bi bi-file-text"></i> Grants &amp; Program Managers</span>
+            <span class="attend-pill"><i class="bi bi-clipboard-data"></i> Monitoring &amp; Evaluation (M&amp;E) Teams</span>
+            <span class="attend-pill"><i class="bi bi-gear"></i> Operations &amp; Digital Transformation Leads</span>
+            <span class="attend-pill"><i class="bi bi-graph-up"></i> Donor Reporting &amp; Compliance Teams</span>
+        </div>
+    </div>
+</section>
+
+<!-- Key Takeaway -->
+<section class="py-5" style="background: #f8fafc;">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="text-center p-5 rounded-4" style="background: linear-gradient(135deg, rgba(0, 90, 158, 0.03), rgba(253, 184, 19, 0.03));">
                     <i class="bi bi-lightbulb fs-1" style="color: var(--bp-gold);"></i>
                     <h3 class="mt-3">Key Takeaway</h3>
-                    <p>By the end of this session, you'll understand how to build a connected nonprofit operating model that improves visibility, strengthens accountability, simplifies reporting, and helps your organization deliver greater mission impact.</p>
+                    <p>By the end of this session, you'll understand how to build a connected nonprofit operating model that improves visibility, strengthens accountability, simplifies reporting, and enables greater mission impact.</p>
                     <div style="width: 60px; height: 3px; background: linear-gradient(90deg, var(--bp-accent), var(--bp-gold)); margin: 0 auto;"></div>
                 </div>
             </div>
@@ -1153,36 +1294,36 @@
             <div class="speaker-card reveal">
                 <div class="speaker-image">
                     <div class="speaker-avatar"><img src="assets/images/catherine-thuo.webp" alt="Catherine"></div>
-                    <div class="speaker-badge">D365 Functional Lead</div>
+                    <div class="speaker-badge">D365 Functional Consultant</div>
                 </div>
                 <div class="speaker-content">
-                    <h3 class="speaker-name">Cate</h3>
-                    <div class="speaker-role">Dynamics 365 Business Central Consultant</div>
-                    <p class="speaker-bio">Specializes in nonprofit finance transformation and operational reporting.</p>
+                    <h3 class="speaker-name">Catherine Wanjiru Thuo</h3>
+                    <div class="speaker-role">Dynamics 365 Business Central Functional Consultant</div>
+                    <p class="speaker-bio">Specialist in nonprofit finance transformation, procurement optimization, and operational reporting using Microsoft Dynamics 365.</p>
                     <a href="mailto:cwanjiru@brightpointinfotech.com" class="speaker-contact"><i class="bi bi-envelope"></i> Contact Catherine</a>
                 </div>
             </div>
             <div class="speaker-card reveal">
                 <div class="speaker-image">
                     <div class="speaker-avatar"><img src="assets/images/samuel-mburu.webp" alt="Samuel"></div>
-                    <div class="speaker-badge">D365 Functional Lead</div>
+                    <div class="speaker-badge">D365 Functional Consultant</div>
                 </div>
                 <div class="speaker-content">
-                    <h3 class="speaker-name">Sam</h3>
-                    <div class="speaker-role">Dynamics 365 Business Central Consultant</div>
-                    <p class="speaker-bio">Specializes in grants management and M&E for nonprofits.</p>
+                    <h3 class="speaker-name">Samuel Mburu Gachoka</h3>
+                    <div class="speaker-role">Dynamics 365 Business Central Functional Consultant</div>
+                    <p class="speaker-bio">Specialist in grants management, project tracking, Monitoring &amp; Evaluation (M&amp;E), and nonprofit impact measurement.</p>
                     <a href="mailto:smburu@brightpointinfotech.com" class="speaker-contact"><i class="bi bi-envelope"></i> Contact Samuel</a>
                 </div>
             </div>
             <div class="speaker-card reveal">
                 <div class="speaker-image">
                     <div class="speaker-avatar"><img src="assets/images/john-wanjala.webp" alt="John"></div>
-                    <div class="speaker-badge">D365 Solution Advisor</div>
+                    <div class="speaker-badge">Microsoft Solutions Advisor</div>
                 </div>
                 <div class="speaker-content">
-                    <h3 class="speaker-name">Austine</h3>
+                    <h3 class="speaker-name">John Austine Wanjala</h3>
                     <div class="speaker-role">Microsoft Solutions Advisor for Nonprofits</div>
-                    <p class="speaker-bio">Advises nonprofits on digital transformation strategies.</p>
+                    <p class="speaker-bio">Advisor helping nonprofits across Africa leverage Microsoft technologies to improve operations, reporting, collaboration, and donor accountability.</p>
                     <a href="mailto:jwanjala@brightpointinfotech.com" class="speaker-contact"><i class="bi bi-envelope"></i> Contact John</a>
                 </div>
             </div>
@@ -1190,39 +1331,28 @@
     </div>
 </section>
 
-<!-- Who Should Attend -->
-<section class="py-5" style="background: #f8fafc;">
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title">Who Should Attend</h2>
-        </div>
-        <div class="text-center">
-            <span class="attend-pill"><i class="bi bi-person-badge"></i> Executive Directors</span>
-            <span class="attend-pill"><i class="bi bi-calculator"></i> Finance Directors</span>
-            <span class="attend-pill"><i class="bi bi-file-text"></i> Grants Managers</span>
-            <span class="attend-pill"><i class="bi bi-clipboard-data"></i> Compliance Officers</span>
-            <span class="attend-pill"><i class="bi bi-gear"></i> Operations Leads</span>
-            <span class="attend-pill"><i class="bi bi-graph-up"></i> M&E Teams</span>
-        </div>
-    </div>
-</section>
-
-<!-- Registration Form -->
-<section class="py-5" id="register" style="background: #f8fafc;">
+<!-- Why Attend Badges -->
+<section class="py-4" style="background: #f8fafc;">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="text-center mb-5">
-                    <h2>Reserve Your Seat Today</h2>
-                    <p>Join nonprofit leaders across Africa. Secure your free access below.</p>
-                </div>
-                <div class="rounded-4 p-4 p-md-5 bg-white">
-                    <iframe src="https://forms.cloud.microsoft.com/Pages/ResponsePage.aspx?id=jqYZTu8tB0G6gbX7G9zRDDQp0T9wHSpEnALEdEH-MkNUN0M5UVFXM0lGSkRPMFlWRUpDUVVTNkYwRS4u&embed=true" width="100%" height="650" frameborder="0" allowfullscreen></iframe>
+            <div class="col-lg-8">
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <span class="badge d-inline-flex align-items-center gap-2 px-4 py-3" style="background: white; color: var(--bp-primary); font-size: 0.9rem; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <i class="bi bi-check-circle-fill" style="color: #22c55e;"></i> Free to attend
+                    </span>
+                    <span class="badge d-inline-flex align-items-center gap-2 px-4 py-3" style="background: white; color: var(--bp-primary); font-size: 0.9rem; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <i class="bi bi-check-circle-fill" style="color: #22c55e;"></i> Live Q&amp;A with Microsoft nonprofit experts
+                    </span>
+                    <span class="badge d-inline-flex align-items-center gap-2 px-4 py-3" style="background: white; color: var(--bp-primary); font-size: 0.9rem; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                        <i class="bi bi-check-circle-fill" style="color: #22c55e;"></i> Webinar recording and resources shared after the session
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
 
 <!-- About Brightpoint Infotech -->
 <section class="py-5" style="background: white;">
@@ -1232,8 +1362,8 @@
                 <div class="text-center p-5 rounded-4" style="background: linear-gradient(135deg, rgba(0, 90, 158, 0.03), rgba(253, 184, 19, 0.03));">
                     <img src="assets/images/Bright-point logo-1024x339.webp" alt="Brightpoint" style="height: 50px;">
                     <h3 class="mt-3">About Brightpoint Infotech</h3>
-                    <p>Brightpoint Infotech is a <strong>Microsoft Solutions Partner</strong> and <strong>Global Finalist for Microsoft Partner of the Year in the Nonprofit Sector</strong>, specializing in Microsoft Dynamics 365 for NGOs and nonprofit organizations across Africa.</p>
-                    <p>We help nonprofits modernize operations and unify finance, grants, programs, and reporting using Microsoft Dynamics 365, Power Platform, and Azure, enabling stronger accountability, better donor reporting, and measurable mission impact.</p>
+                    <p>Brightpoint Infotech is a global <strong>Microsoft Solutions Partner</strong> and <strong>Global Finalist for Microsoft Partner of the Year in the Nonprofit Sector</strong>, specializing in digital transformation for nonprofit organizations.</p>
+                    <p>We help nonprofits modernize operations and unify finance, grants, programs, and reporting through Microsoft Dynamics 365, the Power Platform, and Microsoft Azure, enabling enhanced accountability, streamlined operations, improved donor reporting, and measurable mission impact.</p>
                     <div style="width: 60px; height: 3px; background: linear-gradient(90deg, var(--bp-accent), var(--bp-gold)); margin: 0 auto;"></div>
                 </div>
             </div>
@@ -1248,13 +1378,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-8">
                     <div class="d-flex align-items-center gap-2 mb-3"><i class="bi bi-person-check" style="color: var(--bp-gold);"></i><span class="badge" style="background: rgba(253,184,19,0.15); color: var(--bp-gold);">PERSONALIZED SESSION</span></div>
-                    <h2 style="color: white;">Need a Tailored Discussion for Your NGO?</h2>
-                    <p style="color: rgba(255,255,255,0.8);">Book a free, no-obligation Nonprofit Digital Readiness Assessment with our solution consultants.</p>
-                    <div class="d-flex flex-wrap gap-3">
-                        <div><i class="bi bi-check-circle-fill text-warning"></i> Review workflows</div>
-                        <div><i class="bi bi-check-circle-fill text-warning"></i> Identify gaps</div>
-                        <div><i class="bi bi-check-circle-fill text-warning"></i> Explore automation</div>
-                        <div><i class="bi bi-check-circle-fill text-warning"></i> Custom demo</div>
+                    <h2 style="color: white;">Need a More Personalized Discussion?</h2>
+                    <p style="color: rgba(255,255,255,0.8);">Book a complimentary nonprofit digital readiness assessment with our team.</p>
+                    <div class="d-flex flex-wrap gap-3" style="color: white;">
+                        <div><i class="bi bi-check-circle-fill text-warning"></i> Review your current finance, grants, donor, and program management processes</div>
+                        <div><i class="bi bi-check-circle-fill text-warning"></i> Identify reporting, visibility, and operational gaps</div>
+                        <div><i class="bi bi-check-circle-fill text-warning"></i> Explore opportunities for automation and process improvement</div>
+                        <div><i class="bi bi-check-circle-fill text-warning"></i> Demonstrate how Microsoft Dynamics 365 can support your transformation journey</div>
                     </div>
                 </div>
                 <div class="col-lg-4 text-center text-lg-end">
@@ -1321,7 +1451,59 @@
             <button class="modal-close" id="closeModalBtn">&times;</button>
         </div>
         <div class="modal-body">
-            <iframe src="https://forms.cloud.microsoft.com/Pages/ResponsePage.aspx?id=jqYZTu8tB0G6gbX7G9zRDDQp0T9wHSpEnALEdEH-MkNUN0M5UVFXM0lGSkRPMFlWRUpDUVVTNkYwRS4u&embed=true" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+            <form id="webinarRegModalForm" onsubmit="return handleRegistration(event, this)">
+                <div id="modalFormFields">
+                    <div class="mb-3">
+                        <label for="modalName" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Full Name <span style="color: #dc2626;">*</span></label>
+                        <input type="text" id="modalName" name="name" required class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                        <div class="invalid-feedback">Please enter your full name.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalEmail" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Email Address <span style="color: #dc2626;">*</span></label>
+                        <input type="email" id="modalEmail" name="email" required class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                        <div class="invalid-feedback">Please enter a valid email address.</div>
+                        <div id="modalEmailError" class="invalid-feedback" style="display: none;"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalOrg" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Organization</label>
+                        <input type="text" id="modalOrg" name="organization" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalTitle" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Job Title</label>
+                        <input type="text" id="modalTitle" name="job_title" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                    </div>
+                    <div class="mb-3">
+                        <label for="modalPhone" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Phone Number</label>
+                        <input type="tel" id="modalPhone" name="phone" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                    </div>
+                    <div class="mb-4">
+                        <label for="modalCountry" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Country</label>
+                        <select id="modalCountry" name="country" class="form-control" style="border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 0.85rem;">
+                            <option value="">Select your country</option>
+                            <option value="Kenya">Kenya</option>
+                            <option value="Uganda">Uganda</option>
+                            <option value="Tanzania">Tanzania</option>
+                            <option value="Rwanda">Rwanda</option>
+                            <option value="Ethiopia">Ethiopia</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="United States">United States</option>
+                            <option value="Canada">Canada</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="modalSubmitBtn" style="background: var(--bp-gold); color: var(--bp-primary); border: none; width: 100%; padding: 12px; border-radius: 50px; font-weight: 700; font-size: 0.95rem;">
+                        <i class="bi bi-ticket-perforated me-2"></i>Reserve Free Seat
+                    </button>
+                </div>
+                <div id="modalFormSuccess" style="display: none; text-align: center; padding: 20px 0;">
+                    <div style="font-size: 3rem; color: #22c55e; margin-bottom: 12px;">&#10003;</div>
+                    <h5 style="color: var(--bp-primary); font-weight: 700;">You're Registered!</h5>
+                    <p style="color: var(--bp-gray); font-size: 0.85rem; margin-bottom: 0;">Check your email for webinar access details. A recording will be shared after the session.</p>
+                </div>
+            </form>
         </div>
         <div class="modal-footer">
             <i class="bi bi-lock"></i> Your information is secure. Webinar recording will be shared with registrants.
@@ -1334,34 +1516,121 @@
 
 <!-- Custom JavaScript -->
 <script>
+    var FORM_ACTION = 'https://script.google.com/macros/s/AKfycbzO1wMs5eq6869Jgkn4ruy8oOyK3V6iChad_tlvtuDrUeUM1vKdGAqRWL7qk1fEz2BU/exec';
+
+    var SUBMITTED_EMAILS_KEY = 'bp_webinar_registered_emails';
+
+    function getSubmittedEmails() {
+        try {
+            var stored = localStorage.getItem(SUBMITTED_EMAILS_KEY);
+            return stored ? JSON.parse(stored) : [];
+        } catch (e) {
+            return [];
+        }
+    }
+
+    function addSubmittedEmail(email) {
+        try {
+            var emails = getSubmittedEmails();
+            emails.push(email.toLowerCase().trim());
+            localStorage.setItem(SUBMITTED_EMAILS_KEY, JSON.stringify(emails));
+        } catch (e) {}
+    }
+
+    function isDuplicateEmail(email) {
+        var normalized = email.toLowerCase().trim();
+        var emails = getSubmittedEmails();
+        return emails.indexOf(normalized) !== -1;
+    }
+
+    function handleRegistration(event, form) {
+        event.preventDefault();
+
+        var isModal = form.id === 'webinarRegModalForm';
+        var fieldsId = isModal ? 'modalFormFields' : 'regFormFields';
+        var successId = isModal ? 'modalFormSuccess' : 'regFormSuccess';
+        var submitBtnId = isModal ? 'modalSubmitBtn' : 'regSubmitBtn';
+        var emailId = isModal ? 'modalEmail' : 'regEmail';
+        var emailErrorId = isModal ? 'modalEmailError' : 'regEmailError';
+
+        var fields = document.getElementById(fieldsId);
+        var successDiv = document.getElementById(successId);
+        var submitBtn = document.getElementById(submitBtnId);
+        var emailInput = document.getElementById(emailId);
+        var emailError = document.getElementById(emailErrorId);
+
+        if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return false;
+        }
+        form.classList.remove('was-validated');
+
+        if (emailError) emailError.style.display = 'none';
+
+        var email = emailInput.value.trim();
+
+        if (isDuplicateEmail(email)) {
+            if (emailError) {
+                emailError.textContent = 'This email has already been registered.';
+                emailError.style.display = 'block';
+                emailInput.classList.add('is-invalid');
+            }
+            return false;
+        }
+
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Submitting...';
+        }
+
+        var formData = new FormData(form);
+
+        fetch(FORM_ACTION, {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(response) { return response.text(); })
+        .then(function() {
+            addSubmittedEmail(email);
+            if (fields) fields.style.display = 'none';
+            if (successDiv) successDiv.style.display = 'block';
+        })
+        .catch(function() {
+            addSubmittedEmail(email);
+            if (fields) fields.style.display = 'none';
+            if (successDiv) successDiv.style.display = 'block';
+        });
+
+        return false;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-        // Countdown Timer
         function updateCountdown() {
-            const target = new Date(2026, 6, 22, 15, 0, 0);
-            const now = new Date();
-            const diff = target - now;
+            var target = new Date(2026, 6, 22, 15, 0, 0);
+            var now = new Date();
+            var diff = target - now;
             
             if (diff <= 0) return;
             
-            const days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-            const hours = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
-            const minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
-            const seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+            var days = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            var hours = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+            var minutes = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            var seconds = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
             
-            const dDays = document.getElementById('countdownDays');
-            const dHours = document.getElementById('countdownHours');
-            const dMinutes = document.getElementById('countdownMinutes');
-            const dSeconds = document.getElementById('countdownSeconds');
+            var dDays = document.getElementById('countdownDays');
+            var dHours = document.getElementById('countdownHours');
+            var dMinutes = document.getElementById('countdownMinutes');
+            var dSeconds = document.getElementById('countdownSeconds');
             
             if (dDays) dDays.innerHTML = days;
             if (dHours) dHours.innerHTML = hours;
             if (dMinutes) dMinutes.innerHTML = minutes;
             if (dSeconds) dSeconds.innerHTML = seconds;
             
-            const mDays = document.getElementById('countdownDaysMobile');
-            const mHours = document.getElementById('countdownHoursMobile');
-            const mMinutes = document.getElementById('countdownMinutesMobile');
-            const mSeconds = document.getElementById('countdownSecondsMobile');
+            var mDays = document.getElementById('countdownDaysMobile');
+            var mHours = document.getElementById('countdownHoursMobile');
+            var mMinutes = document.getElementById('countdownMinutesMobile');
+            var mSeconds = document.getElementById('countdownSecondsMobile');
             
             if (mDays) mDays.innerHTML = days;
             if (mHours) mHours.innerHTML = hours;
@@ -1372,22 +1641,20 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
         
-        // Scroll Reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+        var reveals = document.querySelectorAll('.reveal');
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1 });
-        reveals.forEach(el => observer.observe(el));
+        reveals.forEach(function(el) { observer.observe(el); });
         
-        // Floating Button Modal
-        const floatingBtn = document.getElementById('floatingRegisterBtn');
-        const registerModal = document.getElementById('registerModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
+        var floatingBtn = document.getElementById('floatingRegisterBtn');
+        var registerModal = document.getElementById('registerModal');
+        var closeModalBtn = document.getElementById('closeModalBtn');
         
         if (floatingBtn) {
             floatingBtn.addEventListener('click', function(e) {
@@ -1415,17 +1682,14 @@
             });
         }
         
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            var navbar = document.querySelector('.navbar');
             if (navbar && window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else if (navbar) {
                 navbar.classList.remove('scrolled');
             }
         });
-        
-        console.log('Interactive features loaded!');
     });
 </script>
 </body>

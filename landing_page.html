@@ -1133,6 +1133,10 @@
                             <p style="color: rgba(255,255,255,0.7); margin: 6px 0 0; font-size: 0.8rem;">Join nonprofit leaders across Africa</p>
                         </div>
                         <form id="webinarRegForm" onsubmit="return handleRegistration(event, this)" style="padding: 24px;">
+                            <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                                <label for="regWebsite">Website</label>
+                                <input type="text" id="regWebsite" name="website" tabindex="-1" autocomplete="off">
+                            </div>
                             <div id="regFormFields">
                                 <div class="mb-3">
                                     <label for="regName" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Full Name <span style="color: #dc2626;">*</span></label>
@@ -1452,6 +1456,10 @@
         </div>
         <div class="modal-body">
             <form id="webinarRegModalForm" onsubmit="return handleRegistration(event, this)">
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                    <label for="modalWebsite">Website</label>
+                    <input type="text" id="modalWebsite" name="website" tabindex="-1" autocomplete="off">
+                </div>
                 <div id="modalFormFields">
                     <div class="mb-3">
                         <label for="modalName" style="font-size: 0.8rem; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px;">Full Name <span style="color: #dc2626;">*</span></label>
@@ -1568,6 +1576,14 @@
         if (emailError) emailError.style.display = 'none';
 
         var email = emailInput.value.trim();
+
+        // Honeypot check — bot filled hidden field
+        var websiteInput = form.querySelector('input[name="website"]');
+        if (websiteInput && websiteInput.value.trim() !== '') {
+            if (fields) fields.style.display = 'none';
+            if (successDiv) successDiv.style.display = 'block';
+            return false;
+        }
 
         if (isDuplicateEmail(email)) {
             if (emailError) {

@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Brightpoint Infotech//Webinar//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:brightpoint-webinar-20260722@brightpointinfotech.com
+DTSTART:20260722T120000Z
+DTEND:20260722T130000Z
+SUMMARY:Driving Greater Mission Impact with Microsoft Dynamics 365 for Nonprofits
+DESCRIPTION:Join Brightpoint Infotech for an exclusive webinar on modernizing nonprofit operations using Microsoft Dynamics 365.\n\nMicrosoft Teams Link:\nhttps://teams.microsoft.com/meet/224235969573744?p=TrgFxr47ItJlvYW3sA
+LOCATION:Microsoft Teams (Live)
+ORGANIZER;CN=Brightpoint Infotech Team:mailto:info@brightpointinfotech.com
+BEGIN:VALARM
+TRIGGER:-PT15M
+ACTION:DISPLAY
+DESCRIPTION:Reminder: Webinar starts in 15 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brightpoint Infotech — Email Templates</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bp-primary: #0a2540;
+            --bp-accent: #005a9e;
+            --bp-gold: #FDB813;
+            --bp-light: #f8fafc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f1f5f9;
+            color: var(--bp-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .card-container {
+            width: 100%;
+            max-width: 720px;
+        }
+        .logo-area {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .logo-area img {
+            height: 52px;
+            width: auto;
+        }
+        .logo-area .subtitle {
+            font-size: 14px;
+            color: var(--bp-gray, #64748b);
+            margin-top: 10px;
+            letter-spacing: 0.3px;
+        }
+        .main-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px 40px;
+            box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06);
+        }
+        .main-card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .main-card .desc {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--bp-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 14px;
+        }
+        .template-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .template-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--bp-primary);
+            background: var(--bp-light);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .template-item:hover {
+            background: #fff;
+            border-color: #e2e8f0;
+            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06);
+            transform: translateY(-1px);
+            color: var(--bp-accent);
+        }
+        .template-item .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .template-item .info {
+            flex: 1;
+            min-width: 0;
+        }
+        .template-item .info .name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .template-item .info .desc {
+            font-size: 12px;
+            color: #64748b;
+            margin: 0;
+        }
+        .template-item .bi-chevron-right {
+            color: #94a3b8;
+            font-size: 14px;
+            transition: transform 0.2s;
+        }
+        .template-item:hover .bi-chevron-right {
+            transform: translateX(3px);
+            color: var(--bp-accent);
+        }
+        .divider-line {
+            border: 0;
+            height: 1px;
+            background: #e2e8f0;
+            margin: 28px 0;
+        }
+        .icon-mail { background: #dbeafe; color: #2563eb; }
+        .icon-landing { background: #dcfce7; color: #16a34a; }
+        @media (max-width: 480px) {
+            .main-card { padding: 32px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="logo-area">
+            <img src="assets/images/Bright-point%20logo-1024x339.webp" alt="Brightpoint Infotech">
+            <div class="subtitle">Webinar Email Templates</div>
+        </div>
+
+        <div class="main-card">
+            <h1>Template Library</h1>
+            <p class="desc">Preview all email templates and the landing page for the <strong>Driving Greater Mission Impact</strong> webinar campaign.</p>
+
+            <div class="section-label">
+                <i class="bi bi-envelope-paper me-1"></i> Email Sequence
+            </div>
+            <div class="template-grid">
+                <a href="email_1_invitation.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
+                    <div class="info">
+                        <div class="name">Email 1 — Invitation</div>
+                        <div class="desc">Initial webinar invite with gold CTA</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="email_2_followup.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
+                    <div class="info">
+                        <div class="name">Email 2 — Follow-Up</div>
+                        <div class="desc">Reminder for non-registrants</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="email_3_confirmation.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-check-circle"></i></div>
+                    <div class="info">
+                        <div class="name">Email 3 — Confirmation</div>
+                        <div class="desc">Registration confirmed with calendar links</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="email_4_reminder.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-alarm"></i></div>
+                    <div class="info">
+                        <div class="name">Email 4 — Reminder</div>
+                        <div class="desc">6-hour pre-webinar reminder with Teams link</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="email_5a_attendee.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-person-check"></i></div>
+                    <div class="info">
+                        <div class="name">Email 5a — Attendee Follow-Up</div>
+                        <div class="desc">Post-webinar with recording, slides &amp; CTA</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+                <a href="email_5b_noshow.html" class="template-item" target="_blank">
+                    <div class="icon icon-mail"><i class="bi bi-person-x"></i></div>
+                    <div class="info">
+                        <div class="name">Email 5b — No-Show Follow-Up</div>
+                        <div class="desc">Post-webinar with recording &amp; what was covered</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            </div>
+
+            <hr class="divider-line">
+
+            <div class="section-label">
+                <i class="bi bi-globe me-1"></i> Web
+            </div>
+            <div class="template-grid">
+                <a href="landing_page.html" class="template-item" target="_blank">
+                    <div class="icon icon-landing"><i class="bi bi-laptop"></i></div>
+                    <div class="info">
+                        <div class="name">Landing Page</div>
+                        <div class="desc">Full webinar registration page with custom form</div>
+                    </div>
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

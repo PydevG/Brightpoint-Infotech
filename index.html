@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
         :root {
             --bp-primary: #0a2540;
@@ -20,14 +21,12 @@
             background: #f1f5f9;
             color: var(--bp-primary);
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 40px 20px;
         }
         .card-container {
             width: 100%;
-            max-width: 720px;
+            max-width: 800px;
+            margin: 0 auto;
         }
         .logo-area {
             text-align: center;
@@ -60,6 +59,32 @@
             margin-bottom: 32px;
             line-height: 1.6;
         }
+        .send-panel {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+        }
+        .send-panel .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--bp-primary);
+            margin-bottom: 4px;
+        }
+        .send-panel .form-control {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            padding: 10px 14px;
+        }
+        .send-panel .form-control:focus {
+            border-color: var(--bp-accent);
+            box-shadow: 0 0 0 3px rgba(0,90,158,0.1);
+        }
+        .extra-fields {
+            display: none;
+        }
         .section-label {
             font-size: 12px;
             font-weight: 600;
@@ -73,7 +98,7 @@
             flex-direction: column;
             gap: 8px;
         }
-        .template-item {
+        .template-row {
             display: flex;
             align-items: center;
             gap: 14px;
@@ -85,14 +110,12 @@
             transition: all 0.2s ease;
             border: 1px solid transparent;
         }
-        .template-item:hover {
+        .template-row:hover {
             background: #fff;
             border-color: #e2e8f0;
             box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06);
-            transform: translateY(-1px);
-            color: var(--bp-accent);
         }
-        .template-item .icon {
+        .template-row .icon {
             width: 36px;
             height: 36px;
             border-radius: 10px;
@@ -102,42 +125,79 @@
             font-size: 16px;
             flex-shrink: 0;
         }
-        .template-item .info {
+        .template-row .info {
             flex: 1;
             min-width: 0;
         }
-        .template-item .info .name {
+        .template-row .info .name {
             font-size: 14px;
             font-weight: 600;
         }
-        .template-item .info .desc {
+        .template-row .info .desc {
             font-size: 12px;
             color: #64748b;
             margin: 0;
         }
-        .template-item .bi-chevron-right {
-            color: #94a3b8;
-            font-size: 14px;
-            transition: transform 0.2s;
+        .template-row .actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
         }
-        .template-item:hover .bi-chevron-right {
-            transform: translateX(3px);
+        .template-row .actions a,
+        .template-row .actions button {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .btn-preview {
+            background: #e8f0fe;
             color: var(--bp-accent);
         }
-        .divider-line {
-            border: 0;
-            height: 1px;
-            background: #e2e8f0;
-            margin: 28px 0;
+        .btn-preview:hover {
+            background: #d4e2f5;
+        }
+        .btn-send {
+            background: var(--bp-gold);
+            color: var(--bp-primary);
+        }
+        .btn-send:hover {
+            opacity: 0.85;
+        }
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-send.sent {
+            background: #22c55e;
+            color: white;
         }
         .icon-mail { background: #dbeafe; color: #2563eb; }
         .icon-landing { background: #dcfce7; color: #16a34a; }
-        @media (max-width: 480px) {
-            .main-card { padding: 32px 20px; }
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        @media (max-width: 600px) {
+            .main-card { padding: 24px 16px; }
+            .template-row { flex-wrap: wrap; }
+            .template-row .actions { width: 100%; justify-content: flex-end; }
+            .send-panel { padding: 16px; }
         }
     </style>
 </head>
 <body>
+    <div class="toast-container" id="toastContainer"></div>
+
     <div class="card-container">
         <div class="logo-area">
             <img src="assets/images/Bright-point%20logo-1024x339.webp" alt="Brightpoint Infotech">
@@ -146,78 +206,186 @@
 
         <div class="main-card">
             <h1>Template Library</h1>
-            <p class="desc">Preview all email templates and the landing page for the <strong>Driving Greater Mission Impact</strong> webinar campaign.</p>
+            <p class="desc">Preview and send email templates for the <strong>Driving Greater Mission Impact</strong> webinar campaign.</p>
+
+            <div class="send-panel">
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label">Recipient Email</label>
+                        <input type="email" class="form-control" id="recipientEmail" placeholder="md@brightpointinfotech.com">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="recipientName" placeholder="e.g. Jane">
+                    </div>
+                    <div class="col-md-4 extra-fields" id="extraFields">
+                        <label class="form-label">Recording Link</label>
+                        <input type="url" class="form-control" id="recordingLink" placeholder="https://...">
+                        <label class="form-label mt-2">Slides Link</label>
+                        <input type="url" class="form-control" id="slidesLink" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
 
             <div class="section-label">
                 <i class="bi bi-envelope-paper me-1"></i> Email Sequence
             </div>
-            <div class="template-grid">
-                <a href="email_1_invitation.html" class="template-item" target="_blank">
+            <div class="template-grid" id="templateGrid">
+                <div class="template-row" data-template="email_1_invitation.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
                     <div class="info">
                         <div class="name">Email 1 — Invitation</div>
                         <div class="desc">Initial webinar invite with gold CTA</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-                <a href="email_2_followup.html" class="template-item" target="_blank">
+                    <div class="actions">
+                        <a href="email_1_invitation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_1_invitation.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+                <div class="template-row" data-template="email_2_followup.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
                     <div class="info">
                         <div class="name">Email 2 — Follow-Up</div>
                         <div class="desc">Reminder for non-registrants</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-                <a href="email_3_confirmation.html" class="template-item" target="_blank">
+                    <div class="actions">
+                        <a href="email_2_followup.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_2_followup.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+                <div class="template-row" data-template="email_3_confirmation.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-check-circle"></i></div>
                     <div class="info">
                         <div class="name">Email 3 — Confirmation</div>
                         <div class="desc">Registration confirmed with calendar links</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-                <a href="email_4_reminder.html" class="template-item" target="_blank">
+                    <div class="actions">
+                        <a href="email_3_confirmation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_3_confirmation.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+                <div class="template-row" data-template="email_4_reminder.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-alarm"></i></div>
                     <div class="info">
                         <div class="name">Email 4 — Reminder</div>
                         <div class="desc">6-hour pre-webinar reminder with Teams link</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-                <a href="email_5a_attendee.html" class="template-item" target="_blank">
+                    <div class="actions">
+                        <a href="email_4_reminder.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_4_reminder.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+                <div class="template-row" data-template="email_5a_attendee.html" data-has-fields="true">
                     <div class="icon icon-mail"><i class="bi bi-person-check"></i></div>
                     <div class="info">
                         <div class="name">Email 5a — Attendee Follow-Up</div>
                         <div class="desc">Post-webinar with recording, slides &amp; CTA</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
-                <a href="email_5b_noshow.html" class="template-item" target="_blank">
+                    <div class="actions">
+                        <a href="email_5a_attendee.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_5a_attendee.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+                <div class="template-row" data-template="email_5b_noshow.html" data-has-fields="true">
                     <div class="icon icon-mail"><i class="bi bi-person-x"></i></div>
                     <div class="info">
                         <div class="name">Email 5b — No-Show Follow-Up</div>
                         <div class="desc">Post-webinar with recording &amp; what was covered</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
+                    <div class="actions">
+                        <a href="email_5b_noshow.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_5b_noshow.html')" title="Send"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
             </div>
 
-            <hr class="divider-line">
+            <hr class="divider-line" style="border:0;height:1px;background:#e2e8f0;margin:28px 0;">
 
             <div class="section-label">
                 <i class="bi bi-globe me-1"></i> Web
             </div>
             <div class="template-grid">
-                <a href="landing_page.html" class="template-item" target="_blank">
+                <div class="template-row">
                     <div class="icon icon-landing"><i class="bi bi-laptop"></i></div>
                     <div class="info">
                         <div class="name">Landing Page</div>
                         <div class="desc">Full webinar registration page</div>
                     </div>
-                    <i class="bi bi-chevron-right"></i>
-                </a>
+                    <div class="actions">
+                        <a href="landing_page.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        emailjs.init('m3lPghA5YtK8CwZi5');
+
+        var SUBJECTS = {
+            'email_1_invitation.html': 'You\'re Invited: Driving Greater Mission Impact with Microsoft Dynamics 365',
+            'email_2_followup.html': 'Don\'t Miss Out: Driving Greater Mission Impact Webinar',
+            'email_3_confirmation.html': 'You\'re Registered: Driving Greater Mission Impact Webinar',
+            'email_4_reminder.html': 'Reminder: Driving Greater Mission Impact Webinar Starts Soon',
+            'email_5a_attendee.html': 'Thank You: Webinar Resources & Next Steps',
+            'email_5b_noshow.html': 'Missed Our Webinar? Here\'s What You Missed'
+        };
+
+        function showToast(message, type) {
+            var container = document.getElementById('toastContainer');
+            var toast = document.createElement('div');
+            toast.style.cssText = 'background:' + (type === 'success' ? '#22c55e' : '#ef4444') + ';color:white;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:10px;animation:slideIn 0.3s ease;';
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 4000);
+        }
+
+        document.getElementById('templateGrid').addEventListener('mouseover', function(e) {
+            var row = e.target.closest('.template-row');
+            if (!row) return;
+            var hasFields = row.getAttribute('data-has-fields') === 'true';
+            document.getElementById('extraFields').style.display = hasFields ? 'block' : 'none';
+        });
+
+        function sendEmail(btn, templateFile) {
+            var email = document.getElementById('recipientEmail').value.trim();
+            var name = document.getElementById('recipientName').value.trim();
+            var recording = document.getElementById('recordingLink').value.trim();
+            var slides = document.getElementById('slidesLink').value.trim();
+
+            if (!email) { showToast('Please enter a recipient email.', 'error'); return; }
+            if (!name) { showToast('Please enter the recipient\'s first name.', 'error'); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" style="width:14px;height:14px;"></span>';
+
+            fetch(templateFile)
+                .then(function(r) {
+                    if (!r.ok) throw new Error('Failed to load template');
+                    return r.text();
+                })
+                .then(function(html) {
+                    html = html.replace(/\{\{First Name\}\}/g, name);
+                    if (recording) html = html.replace(/\{\{Recording Link\}\}/g, recording);
+                    if (slides) html = html.replace(/\{\{Slides Link\}\}/g, slides);
+
+                    return emailjs.send('service_n2xobbe', 'template_yrlf17r', {
+                        to_email: email,
+                        subject: SUBJECTS[templateFile] || 'Driving Greater Mission Impact Webinar',
+                        html_content: html
+                    });
+                })
+                .then(function() {
+                    btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                    btn.className = 'btn-send sent';
+                    showToast('Sent to ' + email, 'success');
+                })
+                .catch(function(err) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-send"></i>';
+                    showToast('Failed: ' + (err.text || err.message || 'Unknown error'), 'error');
+                });
+        }
+    </script>
 </body>
 </html>

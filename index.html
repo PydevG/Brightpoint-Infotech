@@ -3,209 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brightpoint Infotech — Email Templates</title>
+    <title>Brightpoint Infotech — Email Campaign Sender</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root { --bp-primary: #0a2540; --bp-accent: #005a9e; --bp-gold: #FDB813; --bp-light: #f8fafc; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', -apple-system, sans-serif; background: #f1f5f9; color: var(--bp-primary); min-height: 100vh; padding: 40px 20px; }
-        .card-container { width: 100%; max-width: 800px; margin: 0 auto; }
-        .logo-area { text-align: center; margin-bottom: 40px; }
-        .logo-area img { height: 52px; width: auto; }
-        .logo-area .subtitle { font-size: 14px; color: var(--bp-gray, #64748b); margin-top: 10px; letter-spacing: 0.3px; }
-        .main-card { background: #fff; border-radius: 20px; padding: 48px 40px; box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06); }
-        .main-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-        .main-card .desc { font-size: 15px; color: #64748b; margin-bottom: 32px; line-height: 1.6; }
-        .send-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px 24px; margin-bottom: 28px; }
-        .send-panel .form-label { font-size: 13px; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px; }
-        .send-panel .form-control { border-radius: 10px; border: 1px solid #e2e8f0; font-size: 14px; padding: 10px 14px; }
-        .send-panel .form-control:focus { border-color: var(--bp-accent); box-shadow: 0 0 0 3px rgba(0,90,158,0.1); }
-        .extra-fields { display: none; }
-        .section-label { font-size: 12px; font-weight: 600; color: var(--bp-accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
-        .template-grid { display: flex; flex-direction: column; gap: 8px; }
-        .template-row { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 12px; text-decoration: none; color: var(--bp-primary); background: var(--bp-light); transition: all 0.2s ease; border: 1px solid transparent; }
-        .template-row:hover { background: #fff; border-color: #e2e8f0; box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06); }
-        .template-row .icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-        .template-row .info { flex: 1; min-width: 0; }
-        .template-row .info .name { font-size: 14px; font-weight: 600; }
-        .template-row .info .desc { font-size: 12px; color: #64748b; margin: 0; }
-        .template-row .actions { display: flex; gap: 6px; flex-shrink: 0; }
-        .template-row .actions a, .template-row .actions button { width: 36px; height: 36px; border-radius: 10px; border: none; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+        .container { max-width: 860px; margin: 0 auto; }
+        .logo-area { text-align: center; margin-bottom: 36px; }
+        .logo-area img { height: 48px; width: auto; }
+        .logo-area .sub { font-size: 13px; color: #64748b; margin-top: 8px; }
+        .card { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 4px 24px rgba(10,37,64,0.06); }
+        .card h1 { font-size: 22px; font-weight: 700; }
+        .card .desc { font-size: 14px; color: #64748b; margin-bottom: 28px; }
+        .upload-area { border: 2px dashed #cbd5e1; border-radius: 14px; padding: 32px 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .upload-area:hover { border-color: var(--bp-accent); background: rgba(0,90,158,0.03); }
+        .upload-area.dragover { border-color: var(--bp-accent); background: rgba(0,90,158,0.06); }
+        .upload-area .icon { font-size: 32px; color: var(--bp-accent); }
+        .upload-area p { font-size: 13px; color: #64748b; margin: 8px 0 0; }
+        .upload-area small { font-size: 11px; color: #94a3b8; }
+        .single-section { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eef2f8; }
+        .section-label { font-size: 11px; font-weight: 700; color: var(--bp-accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+        .template-list { display: flex; flex-direction: column; gap: 8px; }
+        .tpl { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 12px; background: var(--bp-light); border: 1px solid transparent; transition: all 0.2s; }
+        .tpl:hover { background: #fff; border-color: #e2e8f0; box-shadow: 0 2px 8px rgba(10,37,64,0.04); }
+        .tpl .icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .tpl .info { flex: 1; min-width: 0; }
+        .tpl .info .name { font-size: 13px; font-weight: 600; }
+        .tpl .info .desc { font-size: 11px; color: #64748b; margin: 0; }
+        .tpl .count { font-size: 11px; font-weight: 600; color: var(--bp-accent); background: #e8f0fe; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
+        .tpl .acts { display: flex; gap: 4px; flex-shrink: 0; }
+        .tpl .acts button, .tpl .acts a { width: 34px; height: 34px; border-radius: 8px; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; transition: all 0.15s; text-decoration: none; }
         .btn-preview { background: #e8f0fe; color: var(--bp-accent); }
         .btn-preview:hover { background: #d4e2f5; }
         .btn-send { background: var(--bp-gold); color: var(--bp-primary); }
         .btn-send:hover { opacity: 0.85; }
-        .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-send:disabled { opacity: 0.4; cursor: not-allowed; }
         .btn-send.sent { background: #22c55e; color: white; }
-        .btn-bulk { background: var(--bp-accent); color: white; padding: 0 14px; width: auto !important; font-size: 12px !important; font-weight: 600; gap: 4px; }
+        .btn-bulk { background: var(--bp-accent); color: white; padding: 0 12px; width: auto !important; font-size: 11px !important; font-weight: 600; gap: 4px; display: none; }
         .btn-bulk:hover { opacity: 0.85; }
         .btn-bulk:disabled { opacity: 0.4; cursor: not-allowed; }
         .icon-mail { background: #dbeafe; color: #2563eb; }
         .icon-landing { background: #dcfce7; color: #16a34a; }
-        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-        .bulk-section { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
-        .bulk-section.visible { display: block; }
-        .bulk-upload-area { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
-        .bulk-upload-area:hover { border-color: var(--bp-accent); background: rgba(0,90,158,0.03); }
-        .bulk-upload-area.dragover { border-color: var(--bp-accent); background: rgba(0,90,158,0.06); }
-        .bulk-recipients { max-height: 200px; overflow-y: auto; margin-top: 12px; }
-        .bulk-recipients .list-item { font-size: 13px; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
-        .bulk-recipients .list-item .badge-count { background: #e8f0fe; color: var(--bp-accent); font-size: 11px; padding: 2px 8px; border-radius: 10px; }
-        .bulk-progress { margin-top: 12px; display: none; }
-        .bulk-progress .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
-        .bulk-progress .progress-fill { height: 100%; background: var(--bp-accent); border-radius: 3px; transition: width 0.3s; width: 0%; }
-        .bulk-progress .progress-text { font-size: 12px; color: #64748b; margin-top: 4px; }
-        @media (max-width: 600px) { .main-card { padding: 24px 16px; } .template-row { flex-wrap: wrap; } .template-row .actions { width: 100%; justify-content: flex-end; } .send-panel { padding: 16px; } }
+        .toast-container { position: fixed; top: 16px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+        .toast { color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.12); animation: fadeIn 0.25s ease; }
+        .toast.success { background: #22c55e; }
+        .toast.error { background: #ef4444; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .summary { margin-top: 12px; display: none; }
+        .summary.visible { display: block; }
+        .summary-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+        .summary-item { font-size: 12px; background: #f8fafc; padding: 6px 14px; border-radius: 20px; border: 1px solid #e2e8f0; }
+        .summary-item strong { color: var(--bp-primary); }
+        .bulk-progress { display: none; margin-top: 12px; padding: 16px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0; }
+        .bulk-progress.visible { display: block; }
+        .bulk-progress .bar { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+        .bulk-progress .fill { height: 100%; background: var(--bp-accent); border-radius: 3px; transition: width 0.3s; width: 0%; }
+        .bulk-progress .stat { font-size: 12px; color: #64748b; margin-top: 4px; }
+        .quick-fields { display: flex; gap: 12px; flex-wrap: wrap; }
+        .quick-fields input { flex: 1; min-width: 140px; border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 13px; }
+        .quick-fields input:focus { border-color: var(--bp-accent); outline: none; box-shadow: 0 0 0 3px rgba(0,90,158,0.08); }
+        .extra-fields { display: none; margin-top: 12px; gap: 12px; flex-wrap: wrap; }
+        .extra-fields.visible { display: flex; }
+        .extra-fields input { flex: 1; min-width: 200px; border-radius: 10px; border: 1px solid #e2e8f0; padding: 10px 14px; font-size: 13px; }
+        .extra-fields input:focus { border-color: var(--bp-accent); outline: none; box-shadow: 0 0 0 3px rgba(0,90,158,0.08); }
+        .hr { border: 0; height: 1px; background: #eef2f8; margin: 24px 0; }
+        @media (max-width: 600px) { .card { padding: 20px; } .tpl { flex-wrap: wrap; } .tpl .acts { width: 100%; justify-content: flex-end; } }
     </style>
 </head>
 <body>
-    <div class="toast-container" id="toastContainer"></div>
+    <div class="toast-container" id="toasts"></div>
 
-    <div class="card-container">
+    <div class="container">
         <div class="logo-area">
             <img src="assets/images/Bright-point%20logo-1024x339.webp" alt="Brightpoint Infotech">
-            <div class="subtitle">Webinar Email Templates</div>
+            <div class="sub">Webinar Email Campaign — Driving Greater Mission Impact</div>
         </div>
 
-        <div class="main-card">
-            <h1>Template Library</h1>
-            <p class="desc">Preview and send email templates for the <strong>Driving Greater Mission Impact</strong> webinar campaign.</p>
+        <div class="card">
+            <h1>Email Campaign Sender</h1>
+            <p class="desc">Upload a recipient list or send a quick test email.</p>
 
-            <div class="send-panel">
-                <div class="row g-3">
-                    <div class="col-md-5">
-                        <label class="form-label">Recipient Email</label>
-                        <input type="email" class="form-control" id="recipientEmail" placeholder="md@brightpointinfotech.com">
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="recipientName" placeholder="e.g. Jane">
-                    </div>
-                    <div class="col-md-4 extra-fields" id="extraFields">
-                        <label class="form-label">Recording Link</label>
-                        <input type="url" class="form-control" id="recordingLink" placeholder="https://...">
-                        <label class="form-label mt-2">Slides Link</label>
-                        <input type="url" class="form-control" id="slidesLink" placeholder="https://...">
-                    </div>
-                </div>
-
-                <div class="mt-3">
-                    <button class="btn btn-sm" style="background:transparent;border:1px solid #e2e8f0;border-radius:10px;font-size:12px;font-weight:600;color:var(--bp-gray);padding:6px 14px;" onclick="toggleBulk()">
-                        <i class="bi bi-upload me-1"></i> Bulk Upload CSV
-                    </button>
-                </div>
-
-                <div class="bulk-section" id="bulkSection">
-                    <div class="bulk-upload-area" id="dropZone" onclick="document.getElementById('csvFile').click()">
-                        <i class="bi bi-file-earmark-spreadsheet" style="font-size:28px;color:var(--bp-accent);"></i>
-                        <p style="font-size:13px;color:#64748b;margin:8px 0 0;">Drop a CSV here or click to browse</p>
-                        <p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">Columns: <code>email</code>, <code>first_name</code></p>
-                        <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="handleCSV(this)">
-                    </div>
-                    <div class="bulk-recipients" id="bulkRecipients"></div>
-                    <div class="bulk-progress" id="bulkProgress">
-                        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-                        <div class="progress-text" id="progressText">0 / 0</div>
-                    </div>
-                </div>
+            <!-- UPLOAD -->
+            <div class="section-label"><i class="bi bi-upload me-1"></i> Upload Recipient List</div>
+            <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                <div class="icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
+                <p>Drop CSV or Excel here, or click to browse</p>
+                <small>Columns: <code>email</code>, <code>first_name</code>, <code>template</code></small><br>
+                <small style="color:#94a3b8;">template values: email_1_invitation, email_2_followup, email_3_confirmation, email_4_reminder, email_5a_attendee, email_5b_noshow</small>
+                <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFile(this)">
+            </div>
+            <div class="summary" id="summary"></div>
+            <div class="bulk-progress" id="bulkProgress">
+                <div style="font-size:13px;font-weight:600;" id="bulkTemplateName"></div>
+                <div class="bar"><div class="fill" id="progressFill"></div></div>
+                <div class="stat" id="progressStat">0 / 0</div>
             </div>
 
-            <div class="section-label">
-                <i class="bi bi-envelope-paper me-1"></i> Email Sequence
+            <div class="hr"></div>
+
+            <!-- QUICK SEND -->
+            <div class="section-label"><i class="bi bi-send me-1"></i> Quick Test Send</div>
+            <div class="quick-fields">
+                <input type="email" id="qEmail" placeholder="Recipient email">
+                <input type="text" id="qName" placeholder="First name">
             </div>
-            <div class="template-grid" id="templateGrid">
-                <div class="template-row" data-template="email_1_invitation.html" data-has-fields="false">
+            <div class="extra-fields" id="extraFields">
+                <input type="url" id="qRecording" placeholder="Recording link (for emails 5a/5b)">
+                <input type="url" id="qSlides" placeholder="Slides link (for emails 5a/5b)">
+            </div>
+
+            <div class="hr"></div>
+
+            <!-- TEMPLATES -->
+            <div class="section-label"><i class="bi bi-envelope-paper me-1"></i> Email Templates</div>
+            <div class="template-list">
+                <div class="tpl" data-tpl="email_1_invitation.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
                     <div class="info">
                         <div class="name">Email 1 — Invitation</div>
                         <div class="desc">Initial webinar invite with gold CTA</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count1">0</span>
+                    <div class="acts">
                         <a href="email_1_invitation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_1_invitation.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_1_invitation.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" onclick="sendOne(this, 'email_1_invitation.html')" title="Send test"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_1_invitation.html')" title="Send to all assigned recipients"><i class="bi bi-people"></i> Send All</button>
                     </div>
                 </div>
-                <div class="template-row" data-template="email_2_followup.html" data-has-fields="false">
+                <div class="tpl" data-tpl="email_2_followup.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-envelope"></i></div>
                     <div class="info">
                         <div class="name">Email 2 — Follow-Up</div>
                         <div class="desc">Reminder for non-registrants</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count2">0</span>
+                    <div class="acts">
                         <a href="email_2_followup.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_2_followup.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_2_followup.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
-                <div class="template-row" data-template="email_3_confirmation.html" data-has-fields="false">
+                <div class="tpl" data-tpl="email_3_confirmation.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-check-circle"></i></div>
                     <div class="info">
                         <div class="name">Email 3 — Confirmation</div>
                         <div class="desc">Registration confirmed with calendar links</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count3">0</span>
+                    <div class="acts">
                         <a href="email_3_confirmation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_3_confirmation.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_3_confirmation.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
-                <div class="template-row" data-template="email_4_reminder.html" data-has-fields="false">
+                <div class="tpl" data-tpl="email_4_reminder.html" data-has-fields="false">
                     <div class="icon icon-mail"><i class="bi bi-alarm"></i></div>
                     <div class="info">
                         <div class="name">Email 4 — Reminder</div>
                         <div class="desc">6-hour pre-webinar reminder with Teams link</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count4">0</span>
+                    <div class="acts">
                         <a href="email_4_reminder.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_4_reminder.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_4_reminder.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
-                <div class="template-row" data-template="email_5a_attendee.html" data-has-fields="true">
+                <div class="tpl" data-tpl="email_5a_attendee.html" data-has-fields="true">
                     <div class="icon icon-mail"><i class="bi bi-person-check"></i></div>
                     <div class="info">
                         <div class="name">Email 5a — Attendee Follow-Up</div>
                         <div class="desc">Post-webinar with recording, slides &amp; CTA</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count5a">0</span>
+                    <div class="acts">
                         <a href="email_5a_attendee.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_5a_attendee.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_5a_attendee.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
-                <div class="template-row" data-template="email_5b_noshow.html" data-has-fields="true">
+                <div class="tpl" data-tpl="email_5b_noshow.html" data-has-fields="true">
                     <div class="icon icon-mail"><i class="bi bi-person-x"></i></div>
                     <div class="info">
                         <div class="name">Email 5b — No-Show Follow-Up</div>
                         <div class="desc">Post-webinar with recording &amp; what was covered</div>
                     </div>
-                    <div class="actions">
+                    <span class="count" id="count5b">0</span>
+                    <div class="acts">
                         <a href="email_5b_noshow.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_5b_noshow.html')" title="Send single"><i class="bi bi-send"></i></button>
-                        <button class="btn-bulk" onclick="sendBulk(this, 'email_5b_noshow.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
             </div>
 
-            <hr style="border:0;height:1px;background:#e2e8f0;margin:28px 0;">
+            <div class="hr"></div>
 
-            <div class="section-label">
-                <i class="bi bi-globe me-1"></i> Web
-            </div>
-            <div class="template-grid">
-                <div class="template-row">
-                    <div class="icon icon-landing"><i class="bi bi-laptop"></i></div>
-                    <div class="info">
-                        <div class="name">Landing Page</div>
-                        <div class="desc">Full webinar registration page</div>
-                    </div>
-                    <div class="actions">
-                        <a href="landing_page.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                    </div>
+            <div class="section-label"><i class="bi bi-globe me-1"></i> Landing Page</div>
+            <div class="tpl" style="cursor:default;">
+                <div class="icon icon-landing"><i class="bi bi-laptop"></i></div>
+                <div class="info">
+                    <div class="name">Landing Page</div>
+                    <div class="desc">Webinar registration page (no navbar/footer)</div>
+                </div>
+                <div class="acts">
+                    <a href="landing_page.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
                 </div>
             </div>
         </div>
@@ -223,191 +230,251 @@
             'email_5b_noshow.html': 'Missed Our Webinar? Here\'s What You Missed'
         };
 
-        var bulkRecipients = [];
+        var TEMPLATE_KEYS = {
+            'email_1_invitation.html': 'email_1_invitation',
+            'email_2_followup.html': 'email_2_followup',
+            'email_3_confirmation.html': 'email_3_confirmation',
+            'email_4_reminder.html': 'email_4_reminder',
+            'email_5a_attendee.html': 'email_5a_attendee',
+            'email_5b_noshow.html': 'email_5b_noshow'
+        };
 
-        function showToast(message, type) {
-            var c = document.getElementById('toastContainer');
+        var recipients = {};
+
+        // --- Toast ---
+        function toast(msg, type) {
+            var c = document.getElementById('toasts');
             var t = document.createElement('div');
-            t.style.cssText = 'background:' + (type === 'success' ? '#22c55e' : '#ef4444') + ';color:white;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:10px;';
-            t.textContent = message;
+            t.className = 'toast ' + (type || 'success');
+            t.textContent = msg;
             c.appendChild(t);
-            setTimeout(function() { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function() { t.remove(); }, 300); }, 4000);
+            setTimeout(function() { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function() { t.remove(); }, 300); }, 3500);
         }
 
+        // --- Show extra fields on hover ---
+        document.querySelector('.template-list').addEventListener('mouseover', function(e) {
+            var row = e.target.closest('.tpl');
+            if (!row) return;
+            var ef = document.getElementById('extraFields');
+            ef.className = 'extra-fields' + (row.getAttribute('data-has-fields') === 'true' ? ' visible' : '');
+        });
+
         // --- Reactivate send buttons when email field changes ---
-        document.getElementById('recipientEmail').addEventListener('input', function() {
-            document.querySelectorAll('.btn-send.sent').forEach(function(btn) {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="bi bi-send"></i>';
-                btn.className = 'btn-send';
+        document.getElementById('qEmail').addEventListener('input', function() {
+            document.querySelectorAll('.btn-send.sent').forEach(function(b) {
+                b.disabled = false; b.innerHTML = '<i class="bi bi-send"></i>'; b.className = 'btn-send';
+            });
+            document.querySelectorAll('.btn-bulk.sent').forEach(function(b) {
+                b.disabled = false; b.innerHTML = '<i class="bi bi-people"></i> Send All'; b.className = 'btn-bulk';
             });
         });
 
-        // --- Extra fields on hover ---
-        document.getElementById('templateGrid').addEventListener('mouseover', function(e) {
-            var row = e.target.closest('.template-row');
-            if (!row) return;
-            document.getElementById('extraFields').style.display = row.getAttribute('data-has-fields') === 'true' ? 'block' : 'none';
-        });
-
-        // --- Bulk toggle ---
-        function toggleBulk() {
-            var s = document.getElementById('bulkSection');
-            s.classList.toggle('visible');
-        }
-
-        // --- CSV handling ---
-        function handleCSV(input) {
+        // --- File handling ---
+        function handleFile(input) {
             var file = input.files[0];
             if (!file) return;
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                parseCSV(e.target.result);
-            };
-            reader.readAsText(file);
+            parseFile(file);
         }
 
-        document.getElementById('dropZone').addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-        document.getElementById('dropZone').addEventListener('dragleave', function() {
-            this.classList.remove('dragover');
-        });
-        document.getElementById('dropZone').addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            var file = e.dataTransfer.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(ev) { parseCSV(ev.target.result); };
-                reader.readAsText(file);
-            }
-        });
+        document.getElementById('dropZone').addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
+        document.getElementById('dropZone').addEventListener('dragleave', function() { this.classList.remove('dragover'); });
+        document.getElementById('dropZone').addEventListener('drop', function(e) { e.preventDefault(); this.classList.remove('dragover'); var file = e.dataTransfer.files[0]; if (file) parseFile(file); });
 
-        function parseCSV(text) {
+        function parseFile(file) {
+            var ext = file.name.split('.').pop().toLowerCase();
+            if (ext === 'csv') {
+                var reader = new FileReader();
+                reader.onload = function(e) { parseData(e.target.result, 'csv'); };
+                reader.readAsText(file);
+            } else if (ext === 'xlsx' || ext === 'xls') {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var wb = XLSX.read(e.target.result, { type: 'array' });
+                    var ws = wb.Sheets[wb.SheetNames[0]];
+                    var csv = XLSX.utils.sheet_to_csv(ws);
+                    parseData(csv, 'xlsx');
+                };
+                reader.readAsArrayBuffer(file);
+            } else {
+                toast('Unsupported file format. Use CSV or Excel.', 'error');
+            }
+        }
+
+        function parseData(text, format) {
             var lines = text.trim().split('\n');
-            if (lines.length < 2) { showToast('CSV must have a header row and at least one recipient.', 'error'); return; }
+            if (lines.length < 2) { toast('File is empty or has no data rows.', 'error'); return; }
 
             var header = lines[0].toLowerCase().split(',').map(function(h) { return h.trim(); });
             var emailIdx = header.indexOf('email');
             var nameIdx = header.indexOf('first_name');
-            if (emailIdx === -1) { showToast('CSV must have an "email" column.', 'error'); return; }
+            var tplIdx = header.indexOf('template');
 
-            bulkRecipients = [];
+            if (emailIdx === -1) { toast('CSV must have an "email" column.', 'error'); return; }
+
+            recipients = {};
+            var total = 0;
+
             for (var i = 1; i < lines.length; i++) {
                 var cols = lines[i].split(',').map(function(c) { return c.trim(); });
                 var email = cols[emailIdx];
                 if (!email) continue;
-                bulkRecipients.push({
-                    email: email,
-                    name: nameIdx >= 0 ? (cols[nameIdx] || '') : ''
-                });
+
+                var name = nameIdx >= 0 ? (cols[nameIdx] || '') : '';
+                var tpl = tplIdx >= 0 ? (cols[tplIdx] || '').trim() : '';
+
+                // Map short template names to full filenames
+                var fullTpl = null;
+                if (tpl) {
+                    var key = tpl.toLowerCase().replace(/\.html$/, '');
+                    for (var k in TEMPLATE_KEYS) {
+                        if (TEMPLATE_KEYS[k] === key || k === key || k.replace('.html', '') === key) {
+                            fullTpl = k;
+                            break;
+                        }
+                    }
+                    if (!fullTpl) {
+                        // Check if it matches the start of any template key
+                        for (var k in TEMPLATE_KEYS) {
+                            if (k.indexOf(key) !== -1 || key.indexOf(TEMPLATE_KEYS[k]) !== -1) {
+                                fullTpl = k;
+                                break;
+                            }
+                        }
+                    }
+                    if (!fullTpl) continue; // unknown template, skip
+                } else {
+                    fullTpl = 'unassigned';
+                }
+
+                if (!recipients[fullTpl]) recipients[fullTpl] = [];
+                recipients[fullTpl].push({ email: email, name: name });
+                total++;
             }
 
-            if (bulkRecipients.length === 0) { showToast('No valid recipients found.', 'error'); return; }
+            if (total === 0) { toast('No valid rows found.', 'error'); return; }
 
-            // Show recipient list
-            var container = document.getElementById('bulkRecipients');
-            var html = '<div style="font-size:12px;font-weight:600;color:var(--bp-primary);margin-bottom:6px;">' + bulkRecipients.length + ' recipients loaded</div>';
-            html += '<div style="font-size:11px;color:#64748b;max-height:150px;overflow-y:auto;">';
-            for (var j = 0; j < Math.min(bulkRecipients.length, 50); j++) {
-                html += '<div class="list-item"><span class="badge-count">' + (j + 1) + '</span> ' + bulkRecipients[j].email + (bulkRecipients[j].name ? ' (' + bulkRecipients[j].name + ')' : '') + '</div>';
+            // Update counts
+            var countEls = {
+                'email_1_invitation.html': 'count1',
+                'email_2_followup.html': 'count2',
+                'email_3_confirmation.html': 'count3',
+                'email_4_reminder.html': 'count4',
+                'email_5a_attendee.html': 'count5a',
+                'email_5b_noshow.html': 'count5b'
+            };
+
+            for (var f in countEls) {
+                var c = (recipients[f] || []).length;
+                document.getElementById(countEls[f]).textContent = c;
             }
-            if (bulkRecipients.length > 50) html += '<div class="list-item" style="color:#94a3b8;">...and ' + (bulkRecipients.length - 50) + ' more</div>';
-            html += '</div>';
-            container.innerHTML = html;
 
-            // Show bulk buttons
-            document.querySelectorAll('.btn-bulk').forEach(function(b) { b.style.display = 'flex'; });
+            // Show/hide bulk buttons
+            document.querySelectorAll('.tpl').forEach(function(row) {
+                var tplFile = row.getAttribute('data-tpl');
+                var btn = row.querySelector('.btn-bulk');
+                var cnt = (recipients[tplFile] || []).length;
+                btn.style.display = cnt > 0 ? 'flex' : 'none';
+            });
 
-            showToast('Loaded ' + bulkRecipients.length + ' recipients from CSV.', 'success');
+            // Summary
+            var s = document.getElementById('summary');
+            var parts = [];
+            for (var f in countEls) {
+                var c = (recipients[f] || []).length;
+                if (c > 0) parts.push('<span class="summary-item"><strong>' + c + '</strong> x ' + f.replace('.html', '') + '</span>');
+            }
+            var unassigned = (recipients['unassigned'] || []).length;
+            if (unassigned > 0) parts.push('<span class="summary-item" style="border-color:#fbbf24;"><strong>' + unassigned + '</strong> unassigned</span>');
+
+            s.innerHTML = '<div style="font-size:13px;font-weight:600;margin-bottom:8px;">' + total + ' recipients loaded</div><div class="summary-grid">' + parts.join('') + '</div>';
+            s.className = 'summary visible';
+
+            toast('Loaded ' + total + ' recipients from ' + file.name, 'success');
         }
 
         // --- Single send ---
-        function sendEmail(btn, templateFile) {
-            var email = document.getElementById('recipientEmail').value.trim();
-            var name = document.getElementById('recipientName').value.trim();
-            var recording = document.getElementById('recordingLink').value.trim();
-            var slides = document.getElementById('slidesLink').value.trim();
+        function sendOne(btn, tplFile) {
+            var email = document.getElementById('qEmail').value.trim();
+            var name = document.getElementById('qName').value.trim();
+            var recording = document.getElementById('qRecording').value.trim();
+            var slides = document.getElementById('qSlides').value.trim();
 
-            if (!email) { showToast('Please enter a recipient email.', 'error'); return; }
-            if (!name) { showToast('Please enter the recipient\'s first name.', 'error'); return; }
+            if (!email) { toast('Enter a recipient email.', 'error'); return; }
+            if (!name) { toast('Enter a first name.', 'error'); return; }
 
             btn.disabled = true;
             btn.innerHTML = '<span class="spinner-border spinner-border-sm" style="width:14px;height:14px;"></span>';
 
-            fetch(templateFile)
-                .then(function(r) { if (!r.ok) throw new Error('Failed to load template'); return r.text(); })
+            fetch(tplFile)
+                .then(function(r) { if (!r.ok) throw new Error('Failed to load'); return r.text(); })
                 .then(function(html) {
                     html = html.replace(/\{\{First Name\}\}/g, name);
                     if (recording) html = html.replace(/\{\{Recording Link\}\}/g, recording);
                     if (slides) html = html.replace(/\{\{Slides Link\}\}/g, slides);
                     return emailjs.send('service_n2xobbe', 'template_yrlf17r', {
-                        to_email: email, subject: SUBJECTS[templateFile] || 'Webinar', html_content: html
+                        to_email: email, subject: SUBJECTS[tplFile] || 'Webinar', html_content: html
                     });
                 })
                 .then(function() {
-                    btn.innerHTML = '<i class="bi bi-check-lg"></i>';
-                    btn.className = 'btn-send sent';
-                    showToast('Sent to ' + email, 'success');
+                    btn.innerHTML = '<i class="bi bi-check-lg"></i>'; btn.className = 'btn-send sent';
+                    toast('Sent to ' + email, 'success');
                 })
                 .catch(function(err) {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-send"></i>';
-                    showToast('Failed: ' + (err.text || err.message || 'Unknown error'), 'error');
+                    btn.disabled = false; btn.innerHTML = '<i class="bi bi-send"></i>';
+                    toast('Failed: ' + (err.text || err.message || 'Error'), 'error');
                 });
         }
 
         // --- Bulk send ---
-        function sendBulk(btn, templateFile) {
-            if (bulkRecipients.length === 0) { showToast('No CSV recipients loaded.', 'error'); return; }
+        function sendBulk(btn, tplFile) {
+            var list = recipients[tplFile];
+            if (!list || list.length === 0) { toast('No recipients assigned to this template.', 'error'); return; }
 
-            var recording = document.getElementById('recordingLink').value.trim();
-            var slides = document.getElementById('slidesLink').value.trim();
+            var recording = document.getElementById('qRecording').value.trim();
+            var slides = document.getElementById('qSlides').value.trim();
 
             btn.disabled = true;
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm" style="width:14px;height:14px;"></span> Sending...';
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending...';
 
-            var progress = document.getElementById('bulkProgress');
-            var fill = document.getElementById('progressFill');
-            var text = document.getElementById('progressText');
-            progress.style.display = 'block';
+            var p = document.getElementById('bulkProgress');
+            p.className = 'bulk-progress visible';
+            document.getElementById('bulkTemplateName').textContent = 'Sending: ' + tplFile.replace('.html', '');
+            document.getElementById('progressFill').style.width = '0%';
+            document.getElementById('progressStat').textContent = '0 / ' + list.length;
 
-            var total = bulkRecipients.length;
+            var total = list.length;
             var sent = 0;
             var failed = 0;
 
-            function sendNext(i) {
+            function next(i) {
                 if (i >= total) {
-                    btn.disabled = false;
-                    btn.innerHTML = '<i class="bi bi-people"></i> All';
-                    showToast('Bulk done: ' + sent + ' sent, ' + failed + ' failed.', failed > 0 ? 'error' : 'success');
+                    btn.disabled = false; btn.innerHTML = '<i class="bi bi-people"></i> Send All'; btn.className = 'btn-bulk sent';
+                    toast('Done: ' + sent + ' sent, ' + failed + ' failed', failed > 0 ? 'error' : 'success');
                     return;
                 }
 
-                var r = bulkRecipients[i];
-                fetch(templateFile)
-                    .then(function(resp) { if (!resp.ok) throw new Error('Load failed'); return resp.text(); })
+                var r = list[i];
+                fetch(tplFile)
+                    .then(function(resp) { if (!resp.ok) throw new Error(); return resp.text(); })
                     .then(function(html) {
                         html = html.replace(/\{\{First Name\}\}/g, r.name);
                         if (recording) html = html.replace(/\{\{Recording Link\}\}/g, recording);
                         if (slides) html = html.replace(/\{\{Slides Link\}\}/g, slides);
                         return emailjs.send('service_n2xobbe', 'template_yrlf17r', {
-                            to_email: r.email, subject: SUBJECTS[templateFile] || 'Webinar', html_content: html
+                            to_email: r.email, subject: SUBJECTS[tplFile] || 'Webinar', html_content: html
                         });
                     })
                     .then(function() { sent++; })
                     .catch(function() { failed++; })
                     .then(function() {
                         var done = sent + failed;
-                        fill.style.width = Math.round(done / total * 100) + '%';
-                        text.textContent = sent + ' sent, ' + failed + ' failed (' + done + '/' + total + ')';
-                        sendNext(i + 1);
+                        document.getElementById('progressFill').style.width = Math.round(done / total * 100) + '%';
+                        document.getElementById('progressStat').textContent = sent + ' sent, ' + failed + ' failed (' + done + '/' + total + ')';
+                        next(i + 1);
                     });
             }
 
-            sendNext(0);
+            next(0);
         }
     </script>
 </body>

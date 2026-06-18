@@ -93,8 +93,8 @@
             <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
                 <div class="icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
                 <p>Drop CSV or Excel here, or click to browse</p>
-                <small>Columns: <code>email</code>, <code>first_name</code>, <code>template</code></small><br>
-                <small style="color:#94a3b8;">template values: email_1_invitation, email_2_followup, email_3_confirmation, email_4_reminder, email_5a_attendee, email_5b_noshow</small>
+                <small>Columns: <code>email</code>, <code>first_name</code></small><br>
+                <small style="color:#94a3b8;">All recipients will receive Email 1 (Invitation)</small>
                 <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFile(this)">
             </div>
             <div class="summary" id="summary"></div>
@@ -144,7 +144,7 @@
                     <span class="count" id="count2">0</span>
                     <div class="acts">
                         <a href="email_2_followup.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Not enabled, send invitation email first"><i class="bi bi-lock"></i></button>
                         <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                     <span class="count" id="count3">0</span>
                     <div class="acts">
                         <a href="email_3_confirmation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Not enabled, send invitation email first"><i class="bi bi-lock"></i></button>
                         <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
@@ -170,7 +170,7 @@
                     <span class="count" id="count4">0</span>
                     <div class="acts">
                         <a href="email_4_reminder.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Not enabled, send invitation email first"><i class="bi bi-lock"></i></button>
                         <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
@@ -183,7 +183,7 @@
                     <span class="count" id="count5a">0</span>
                     <div class="acts">
                         <a href="email_5a_attendee.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Not enabled, send invitation email first"><i class="bi bi-lock"></i></button>
                         <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                     <span class="count" id="count5b">0</span>
                     <div class="acts">
                         <a href="email_5b_noshow.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i></button>
+                        <button class="btn-send" disabled style="opacity:0.3;cursor:not-allowed;" title="Not enabled, send invitation email first"><i class="bi bi-lock"></i></button>
                         <button class="btn-bulk" disabled style="opacity:0.3;cursor:not-allowed;display:none;" title="Upgrade EmailJS to send"><i class="bi bi-lock"></i> Send All</button>
                     </div>
                 </div>
@@ -307,89 +307,51 @@
             var header = lines[0].toLowerCase().split(',').map(function(h) { return h.trim(); });
             var emailIdx = header.indexOf('email');
             var nameIdx = header.indexOf('first_name');
-            var tplIdx = header.indexOf('template');
 
             if (emailIdx === -1) { toast('CSV must have an "email" column.', 'error'); return; }
 
+            // All recipients go to email 1
+            var tplFile = 'email_1_invitation.html';
             recipients = {};
+            recipients[tplFile] = [];
             var total = 0;
 
             for (var i = 1; i < lines.length; i++) {
                 var cols = lines[i].split(',').map(function(c) { return c.trim(); });
                 var email = cols[emailIdx];
                 if (!email) continue;
-
                 var name = nameIdx >= 0 ? (cols[nameIdx] || '') : '';
-                var tpl = tplIdx >= 0 ? (cols[tplIdx] || '').trim() : '';
-
-                // Map short template names to full filenames
-                var fullTpl = null;
-                if (tpl) {
-                    var key = tpl.toLowerCase().replace(/\.html$/, '');
-                    for (var k in TEMPLATE_KEYS) {
-                        if (TEMPLATE_KEYS[k] === key || k === key || k.replace('.html', '') === key) {
-                            fullTpl = k;
-                            break;
-                        }
-                    }
-                    if (!fullTpl) {
-                        // Check if it matches the start of any template key
-                        for (var k in TEMPLATE_KEYS) {
-                            if (k.indexOf(key) !== -1 || key.indexOf(TEMPLATE_KEYS[k]) !== -1) {
-                                fullTpl = k;
-                                break;
-                            }
-                        }
-                    }
-                    if (!fullTpl) continue; // unknown template, skip
-                } else {
-                    fullTpl = 'unassigned';
-                }
-
-                if (!recipients[fullTpl]) recipients[fullTpl] = [];
-                recipients[fullTpl].push({ email: email, name: name });
+                recipients[tplFile].push({ email: email, name: name });
                 total++;
             }
 
             if (total === 0) { toast('No valid rows found.', 'error'); return; }
 
-            // Update counts
-            var countEls = {
-                'email_1_invitation.html': 'count1',
-                'email_2_followup.html': 'count2',
-                'email_3_confirmation.html': 'count3',
-                'email_4_reminder.html': 'count4',
-                'email_5a_attendee.html': 'count5a',
-                'email_5b_noshow.html': 'count5b'
-            };
-
-            for (var f in countEls) {
-                var c = (recipients[f] || []).length;
-                document.getElementById(countEls[f]).textContent = c;
+            // Update count for email 1 only
+            document.getElementById('count1').textContent = total;
+            for (var i = 2; i <= 6; i++) {
+                var el = document.getElementById('count' + (i === 2 ? '2' : i === 3 ? '3' : i === 4 ? '4' : i === 5 ? '5a' : '5b'));
+                if (el) el.textContent = '0';
             }
 
-            // Show/hide bulk buttons
+            // Show bulk button only on email 1
             document.querySelectorAll('.tpl').forEach(function(row) {
                 var tplFile = row.getAttribute('data-tpl');
                 var btn = row.querySelector('.btn-bulk');
-                var cnt = (recipients[tplFile] || []).length;
-                btn.style.display = cnt > 0 ? 'flex' : 'none';
+                if (tplFile === 'email_1_invitation.html') {
+                    btn.style.display = total > 0 ? 'flex' : 'none';
+                } else {
+                    btn.style.display = 'none';
+                }
             });
 
             // Summary
             var s = document.getElementById('summary');
-            var parts = [];
-            for (var f in countEls) {
-                var c = (recipients[f] || []).length;
-                if (c > 0) parts.push('<span class="summary-item"><strong>' + c + '</strong> x ' + f.replace('.html', '') + '</span>');
-            }
-            var unassigned = (recipients['unassigned'] || []).length;
-            if (unassigned > 0) parts.push('<span class="summary-item" style="border-color:#fbbf24;"><strong>' + unassigned + '</strong> unassigned</span>');
-
-            s.innerHTML = '<div style="font-size:13px;font-weight:600;margin-bottom:8px;">' + total + ' recipients loaded</div><div class="summary-grid">' + parts.join('') + '</div>';
+            s.innerHTML = '<div style="font-size:13px;font-weight:600;margin-bottom:4px;">' + total + ' recipients loaded</div>' +
+                '<div style="font-size:12px;color:#64748b;">All will receive <strong>Email 1 — Invitation</strong></div>';
             s.className = 'summary visible';
 
-            toast('Loaded ' + total + ' recipients from ' + file.name, 'success');
+            toast('Loaded ' + total + ' recipients.', 'success');
         }
 
         // --- Single send ---

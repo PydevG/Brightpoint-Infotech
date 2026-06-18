@@ -93,8 +93,8 @@
             <div class="upload-area" id="dropZone" onclick="document.getElementById('fileInput').click()">
                 <div class="icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
                 <p>Drop CSV or Excel here, or click to browse</p>
-                <small>Columns: <code>email</code>, <code>first_name</code></small><br>
-                <small style="color:#94a3b8;">All recipients will receive Email 1 (Invitation)</small>
+                <small>No header needed — just put <code>email</code> in column A, <code>first_name</code> in column B</small><br>
+                <small style="color:#94a3b8;">Or add a header row with column names in any order</small>
                 <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFile(this)">
             </div>
             <div class="summary" id="summary"></div>
@@ -302,25 +302,32 @@
 
         function parseData(text, format) {
             var lines = text.trim().split('\n');
-            if (lines.length < 2) { toast('File is empty or has no data rows.', 'error'); return; }
+            if (lines.length < 1) { toast('File is empty.', 'error'); return; }
 
-            var header = lines[0].toLowerCase().split(',').map(function(h) { return h.trim(); });
-            var emailIdx = header.indexOf('email');
-            var nameIdx = header.indexOf('first_name');
+            var firstRow = lines[0].toLowerCase().split(',').map(function(h) { return h.trim(); });
+            var hasHeader = firstRow.indexOf('email') !== -1;
+            var emailIdx, nameIdx, startRow;
 
-            if (emailIdx === -1) { toast('CSV must have an "email" column.', 'error'); return; }
+            if (hasHeader) {
+                emailIdx = firstRow.indexOf('email');
+                nameIdx = firstRow.indexOf('first_name');
+                startRow = 1;
+            } else {
+                emailIdx = 0;
+                nameIdx = 1;
+                startRow = 0;
+            }
 
-            // All recipients go to email 1
             var tplFile = 'email_1_invitation.html';
             recipients = {};
             recipients[tplFile] = [];
             var total = 0;
 
-            for (var i = 1; i < lines.length; i++) {
+            for (var i = startRow; i < lines.length; i++) {
                 var cols = lines[i].split(',').map(function(c) { return c.trim(); });
                 var email = cols[emailIdx];
                 if (!email) continue;
-                var name = nameIdx >= 0 ? (cols[nameIdx] || '') : '';
+                var name = nameIdx >= 0 && nameIdx < cols.length ? (cols[nameIdx] || '') : '';
                 recipients[tplFile].push({ email: email, name: name });
                 total++;
             }

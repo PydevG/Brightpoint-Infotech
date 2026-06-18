@@ -9,190 +9,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <style>
-        :root {
-            --bp-primary: #0a2540;
-            --bp-accent: #005a9e;
-            --bp-gold: #FDB813;
-            --bp-light: #f8fafc;
-        }
+        :root { --bp-primary: #0a2540; --bp-accent: #005a9e; --bp-gold: #FDB813; --bp-light: #f8fafc; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #f1f5f9;
-            color: var(--bp-primary);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-        .card-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .logo-area {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .logo-area img {
-            height: 52px;
-            width: auto;
-        }
-        .logo-area .subtitle {
-            font-size: 14px;
-            color: var(--bp-gray, #64748b);
-            margin-top: 10px;
-            letter-spacing: 0.3px;
-        }
-        .main-card {
-            background: #fff;
-            border-radius: 20px;
-            padding: 48px 40px;
-            box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06);
-        }
-        .main-card h1 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .main-card .desc {
-            font-size: 15px;
-            color: #64748b;
-            margin-bottom: 32px;
-            line-height: 1.6;
-        }
-        .send-panel {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 20px 24px;
-            margin-bottom: 28px;
-        }
-        .send-panel .form-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--bp-primary);
-            margin-bottom: 4px;
-        }
-        .send-panel .form-control {
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            font-size: 14px;
-            padding: 10px 14px;
-        }
-        .send-panel .form-control:focus {
-            border-color: var(--bp-accent);
-            box-shadow: 0 0 0 3px rgba(0,90,158,0.1);
-        }
-        .extra-fields {
-            display: none;
-        }
-        .section-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--bp-accent);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 14px;
-        }
-        .template-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .template-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--bp-primary);
-            background: var(--bp-light);
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-        }
-        .template-row:hover {
-            background: #fff;
-            border-color: #e2e8f0;
-            box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06);
-        }
-        .template-row .icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        .template-row .info {
-            flex: 1;
-            min-width: 0;
-        }
-        .template-row .info .name {
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .template-row .info .desc {
-            font-size: 12px;
-            color: #64748b;
-            margin: 0;
-        }
-        .template-row .actions {
-            display: flex;
-            gap: 6px;
-            flex-shrink: 0;
-        }
-        .template-row .actions a,
-        .template-row .actions button {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-        .btn-preview {
-            background: #e8f0fe;
-            color: var(--bp-accent);
-        }
-        .btn-preview:hover {
-            background: #d4e2f5;
-        }
-        .btn-send {
-            background: var(--bp-gold);
-            color: var(--bp-primary);
-        }
-        .btn-send:hover {
-            opacity: 0.85;
-        }
-        .btn-send:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn-send.sent {
-            background: #22c55e;
-            color: white;
-        }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f1f5f9; color: var(--bp-primary); min-height: 100vh; padding: 40px 20px; }
+        .card-container { width: 100%; max-width: 800px; margin: 0 auto; }
+        .logo-area { text-align: center; margin-bottom: 40px; }
+        .logo-area img { height: 52px; width: auto; }
+        .logo-area .subtitle { font-size: 14px; color: var(--bp-gray, #64748b); margin-top: 10px; letter-spacing: 0.3px; }
+        .main-card { background: #fff; border-radius: 20px; padding: 48px 40px; box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06); }
+        .main-card h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .main-card .desc { font-size: 15px; color: #64748b; margin-bottom: 32px; line-height: 1.6; }
+        .send-panel { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px 24px; margin-bottom: 28px; }
+        .send-panel .form-label { font-size: 13px; font-weight: 600; color: var(--bp-primary); margin-bottom: 4px; }
+        .send-panel .form-control { border-radius: 10px; border: 1px solid #e2e8f0; font-size: 14px; padding: 10px 14px; }
+        .send-panel .form-control:focus { border-color: var(--bp-accent); box-shadow: 0 0 0 3px rgba(0,90,158,0.1); }
+        .extra-fields { display: none; }
+        .section-label { font-size: 12px; font-weight: 600; color: var(--bp-accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 14px; }
+        .template-grid { display: flex; flex-direction: column; gap: 8px; }
+        .template-row { display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: 12px; text-decoration: none; color: var(--bp-primary); background: var(--bp-light); transition: all 0.2s ease; border: 1px solid transparent; }
+        .template-row:hover { background: #fff; border-color: #e2e8f0; box-shadow: 0 4px 12px rgba(10, 37, 64, 0.06); }
+        .template-row .icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .template-row .info { flex: 1; min-width: 0; }
+        .template-row .info .name { font-size: 14px; font-weight: 600; }
+        .template-row .info .desc { font-size: 12px; color: #64748b; margin: 0; }
+        .template-row .actions { display: flex; gap: 6px; flex-shrink: 0; }
+        .template-row .actions a, .template-row .actions button { width: 36px; height: 36px; border-radius: 10px; border: none; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+        .btn-preview { background: #e8f0fe; color: var(--bp-accent); }
+        .btn-preview:hover { background: #d4e2f5; }
+        .btn-send { background: var(--bp-gold); color: var(--bp-primary); }
+        .btn-send:hover { opacity: 0.85; }
+        .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-send.sent { background: #22c55e; color: white; }
+        .btn-bulk { background: var(--bp-accent); color: white; padding: 0 14px; width: auto !important; font-size: 12px !important; font-weight: 600; gap: 4px; }
+        .btn-bulk:hover { opacity: 0.85; }
+        .btn-bulk:disabled { opacity: 0.4; cursor: not-allowed; }
         .icon-mail { background: #dbeafe; color: #2563eb; }
         .icon-landing { background: #dcfce7; color: #16a34a; }
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 9999;
-        }
-        @media (max-width: 600px) {
-            .main-card { padding: 24px 16px; }
-            .template-row { flex-wrap: wrap; }
-            .template-row .actions { width: 100%; justify-content: flex-end; }
-            .send-panel { padding: 16px; }
-        }
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+        .bulk-section { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+        .bulk-section.visible { display: block; }
+        .bulk-upload-area { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .bulk-upload-area:hover { border-color: var(--bp-accent); background: rgba(0,90,158,0.03); }
+        .bulk-upload-area.dragover { border-color: var(--bp-accent); background: rgba(0,90,158,0.06); }
+        .bulk-recipients { max-height: 200px; overflow-y: auto; margin-top: 12px; }
+        .bulk-recipients .list-item { font-size: 13px; padding: 4px 0; display: flex; align-items: center; gap: 8px; }
+        .bulk-recipients .list-item .badge-count { background: #e8f0fe; color: var(--bp-accent); font-size: 11px; padding: 2px 8px; border-radius: 10px; }
+        .bulk-progress { margin-top: 12px; display: none; }
+        .bulk-progress .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; overflow: hidden; }
+        .bulk-progress .progress-fill { height: 100%; background: var(--bp-accent); border-radius: 3px; transition: width 0.3s; width: 0%; }
+        .bulk-progress .progress-text { font-size: 12px; color: #64748b; margin-top: 4px; }
+        @media (max-width: 600px) { .main-card { padding: 24px 16px; } .template-row { flex-wrap: wrap; } .template-row .actions { width: 100%; justify-content: flex-end; } .send-panel { padding: 16px; } }
     </style>
 </head>
 <body>
@@ -225,6 +91,26 @@
                         <input type="url" class="form-control" id="slidesLink" placeholder="https://...">
                     </div>
                 </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-sm" style="background:transparent;border:1px solid #e2e8f0;border-radius:10px;font-size:12px;font-weight:600;color:var(--bp-gray);padding:6px 14px;" onclick="toggleBulk()">
+                        <i class="bi bi-upload me-1"></i> Bulk Upload CSV
+                    </button>
+                </div>
+
+                <div class="bulk-section" id="bulkSection">
+                    <div class="bulk-upload-area" id="dropZone" onclick="document.getElementById('csvFile').click()">
+                        <i class="bi bi-file-earmark-spreadsheet" style="font-size:28px;color:var(--bp-accent);"></i>
+                        <p style="font-size:13px;color:#64748b;margin:8px 0 0;">Drop a CSV here or click to browse</p>
+                        <p style="font-size:11px;color:#94a3b8;margin:4px 0 0;">Columns: <code>email</code>, <code>first_name</code></p>
+                        <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="handleCSV(this)">
+                    </div>
+                    <div class="bulk-recipients" id="bulkRecipients"></div>
+                    <div class="bulk-progress" id="bulkProgress">
+                        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                        <div class="progress-text" id="progressText">0 / 0</div>
+                    </div>
+                </div>
             </div>
 
             <div class="section-label">
@@ -239,7 +125,8 @@
                     </div>
                     <div class="actions">
                         <a href="email_1_invitation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_1_invitation.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_1_invitation.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_1_invitation.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
                 <div class="template-row" data-template="email_2_followup.html" data-has-fields="false">
@@ -250,7 +137,8 @@
                     </div>
                     <div class="actions">
                         <a href="email_2_followup.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_2_followup.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_2_followup.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_2_followup.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
                 <div class="template-row" data-template="email_3_confirmation.html" data-has-fields="false">
@@ -261,7 +149,8 @@
                     </div>
                     <div class="actions">
                         <a href="email_3_confirmation.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_3_confirmation.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_3_confirmation.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_3_confirmation.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
                 <div class="template-row" data-template="email_4_reminder.html" data-has-fields="false">
@@ -272,7 +161,8 @@
                     </div>
                     <div class="actions">
                         <a href="email_4_reminder.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_4_reminder.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_4_reminder.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_4_reminder.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
                 <div class="template-row" data-template="email_5a_attendee.html" data-has-fields="true">
@@ -283,7 +173,8 @@
                     </div>
                     <div class="actions">
                         <a href="email_5a_attendee.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_5a_attendee.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_5a_attendee.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_5a_attendee.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
                 <div class="template-row" data-template="email_5b_noshow.html" data-has-fields="true">
@@ -294,12 +185,13 @@
                     </div>
                     <div class="actions">
                         <a href="email_5b_noshow.html" target="_blank" class="btn-preview" title="Preview"><i class="bi bi-eye"></i></a>
-                        <button class="btn-send" onclick="sendEmail(this, 'email_5b_noshow.html')" title="Send"><i class="bi bi-send"></i></button>
+                        <button class="btn-send" onclick="sendEmail(this, 'email_5b_noshow.html')" title="Send single"><i class="bi bi-send"></i></button>
+                        <button class="btn-bulk" onclick="sendBulk(this, 'email_5b_noshow.html')" title="Send to all CSV recipients" style="display:none;"><i class="bi bi-people"></i> All</button>
                     </div>
                 </div>
             </div>
 
-            <hr class="divider-line" style="border:0;height:1px;background:#e2e8f0;margin:28px 0;">
+            <hr style="border:0;height:1px;background:#e2e8f0;margin:28px 0;">
 
             <div class="section-label">
                 <i class="bi bi-globe me-1"></i> Web
@@ -331,22 +223,108 @@
             'email_5b_noshow.html': 'Missed Our Webinar? Here\'s What You Missed'
         };
 
+        var bulkRecipients = [];
+
         function showToast(message, type) {
-            var container = document.getElementById('toastContainer');
-            var toast = document.createElement('div');
-            toast.style.cssText = 'background:' + (type === 'success' ? '#22c55e' : '#ef4444') + ';color:white;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:10px;animation:slideIn 0.3s ease;';
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 4000);
+            var c = document.getElementById('toastContainer');
+            var t = document.createElement('div');
+            t.style.cssText = 'background:' + (type === 'success' ? '#22c55e' : '#ef4444') + ';color:white;padding:14px 20px;border-radius:12px;font-size:14px;font-weight:500;box-shadow:0 10px 25px rgba(0,0,0,0.15);margin-bottom:10px;';
+            t.textContent = message;
+            c.appendChild(t);
+            setTimeout(function() { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function() { t.remove(); }, 300); }, 4000);
         }
 
+        // --- Reactivate send buttons when email field changes ---
+        document.getElementById('recipientEmail').addEventListener('input', function() {
+            document.querySelectorAll('.btn-send.sent').forEach(function(btn) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-send"></i>';
+                btn.className = 'btn-send';
+            });
+        });
+
+        // --- Extra fields on hover ---
         document.getElementById('templateGrid').addEventListener('mouseover', function(e) {
             var row = e.target.closest('.template-row');
             if (!row) return;
-            var hasFields = row.getAttribute('data-has-fields') === 'true';
-            document.getElementById('extraFields').style.display = hasFields ? 'block' : 'none';
+            document.getElementById('extraFields').style.display = row.getAttribute('data-has-fields') === 'true' ? 'block' : 'none';
         });
 
+        // --- Bulk toggle ---
+        function toggleBulk() {
+            var s = document.getElementById('bulkSection');
+            s.classList.toggle('visible');
+        }
+
+        // --- CSV handling ---
+        function handleCSV(input) {
+            var file = input.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                parseCSV(e.target.result);
+            };
+            reader.readAsText(file);
+        }
+
+        document.getElementById('dropZone').addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        document.getElementById('dropZone').addEventListener('dragleave', function() {
+            this.classList.remove('dragover');
+        });
+        document.getElementById('dropZone').addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            var file = e.dataTransfer.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(ev) { parseCSV(ev.target.result); };
+                reader.readAsText(file);
+            }
+        });
+
+        function parseCSV(text) {
+            var lines = text.trim().split('\n');
+            if (lines.length < 2) { showToast('CSV must have a header row and at least one recipient.', 'error'); return; }
+
+            var header = lines[0].toLowerCase().split(',').map(function(h) { return h.trim(); });
+            var emailIdx = header.indexOf('email');
+            var nameIdx = header.indexOf('first_name');
+            if (emailIdx === -1) { showToast('CSV must have an "email" column.', 'error'); return; }
+
+            bulkRecipients = [];
+            for (var i = 1; i < lines.length; i++) {
+                var cols = lines[i].split(',').map(function(c) { return c.trim(); });
+                var email = cols[emailIdx];
+                if (!email) continue;
+                bulkRecipients.push({
+                    email: email,
+                    name: nameIdx >= 0 ? (cols[nameIdx] || '') : ''
+                });
+            }
+
+            if (bulkRecipients.length === 0) { showToast('No valid recipients found.', 'error'); return; }
+
+            // Show recipient list
+            var container = document.getElementById('bulkRecipients');
+            var html = '<div style="font-size:12px;font-weight:600;color:var(--bp-primary);margin-bottom:6px;">' + bulkRecipients.length + ' recipients loaded</div>';
+            html += '<div style="font-size:11px;color:#64748b;max-height:150px;overflow-y:auto;">';
+            for (var j = 0; j < Math.min(bulkRecipients.length, 50); j++) {
+                html += '<div class="list-item"><span class="badge-count">' + (j + 1) + '</span> ' + bulkRecipients[j].email + (bulkRecipients[j].name ? ' (' + bulkRecipients[j].name + ')' : '') + '</div>';
+            }
+            if (bulkRecipients.length > 50) html += '<div class="list-item" style="color:#94a3b8;">...and ' + (bulkRecipients.length - 50) + ' more</div>';
+            html += '</div>';
+            container.innerHTML = html;
+
+            // Show bulk buttons
+            document.querySelectorAll('.btn-bulk').forEach(function(b) { b.style.display = 'flex'; });
+
+            showToast('Loaded ' + bulkRecipients.length + ' recipients from CSV.', 'success');
+        }
+
+        // --- Single send ---
         function sendEmail(btn, templateFile) {
             var email = document.getElementById('recipientEmail').value.trim();
             var name = document.getElementById('recipientName').value.trim();
@@ -360,19 +338,13 @@
             btn.innerHTML = '<span class="spinner-border spinner-border-sm" style="width:14px;height:14px;"></span>';
 
             fetch(templateFile)
-                .then(function(r) {
-                    if (!r.ok) throw new Error('Failed to load template');
-                    return r.text();
-                })
+                .then(function(r) { if (!r.ok) throw new Error('Failed to load template'); return r.text(); })
                 .then(function(html) {
                     html = html.replace(/\{\{First Name\}\}/g, name);
                     if (recording) html = html.replace(/\{\{Recording Link\}\}/g, recording);
                     if (slides) html = html.replace(/\{\{Slides Link\}\}/g, slides);
-
                     return emailjs.send('service_n2xobbe', 'template_yrlf17r', {
-                        to_email: email,
-                        subject: SUBJECTS[templateFile] || 'Driving Greater Mission Impact Webinar',
-                        html_content: html
+                        to_email: email, subject: SUBJECTS[templateFile] || 'Webinar', html_content: html
                     });
                 })
                 .then(function() {
@@ -385,6 +357,57 @@
                     btn.innerHTML = '<i class="bi bi-send"></i>';
                     showToast('Failed: ' + (err.text || err.message || 'Unknown error'), 'error');
                 });
+        }
+
+        // --- Bulk send ---
+        function sendBulk(btn, templateFile) {
+            if (bulkRecipients.length === 0) { showToast('No CSV recipients loaded.', 'error'); return; }
+
+            var recording = document.getElementById('recordingLink').value.trim();
+            var slides = document.getElementById('slidesLink').value.trim();
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" style="width:14px;height:14px;"></span> Sending...';
+
+            var progress = document.getElementById('bulkProgress');
+            var fill = document.getElementById('progressFill');
+            var text = document.getElementById('progressText');
+            progress.style.display = 'block';
+
+            var total = bulkRecipients.length;
+            var sent = 0;
+            var failed = 0;
+
+            function sendNext(i) {
+                if (i >= total) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="bi bi-people"></i> All';
+                    showToast('Bulk done: ' + sent + ' sent, ' + failed + ' failed.', failed > 0 ? 'error' : 'success');
+                    return;
+                }
+
+                var r = bulkRecipients[i];
+                fetch(templateFile)
+                    .then(function(resp) { if (!resp.ok) throw new Error('Load failed'); return resp.text(); })
+                    .then(function(html) {
+                        html = html.replace(/\{\{First Name\}\}/g, r.name);
+                        if (recording) html = html.replace(/\{\{Recording Link\}\}/g, recording);
+                        if (slides) html = html.replace(/\{\{Slides Link\}\}/g, slides);
+                        return emailjs.send('service_n2xobbe', 'template_yrlf17r', {
+                            to_email: r.email, subject: SUBJECTS[templateFile] || 'Webinar', html_content: html
+                        });
+                    })
+                    .then(function() { sent++; })
+                    .catch(function() { failed++; })
+                    .then(function() {
+                        var done = sent + failed;
+                        fill.style.width = Math.round(done / total * 100) + '%';
+                        text.textContent = sent + ' sent, ' + failed + ' failed (' + done + '/' + total + ')';
+                        sendNext(i + 1);
+                    });
+            }
+
+            sendNext(0);
         }
     </script>
 </body>
